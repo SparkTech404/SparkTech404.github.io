@@ -29,7 +29,7 @@ export function Footer() {
             <p className="text-slate-400 text-sm leading-relaxed">
               We deliver secure, scalable, and modern digital solutions designed to accelerate business growth and maximize online presence.
             </p>
-            <div className="flex items-center gap-3 pt-2">
+            {/* <div className="flex items-center gap-3 pt-2">
               {[
                 { icon: Twitter, label: "Twitter", href: "#" },
                 { icon: Linkedin, label: "LinkedIn", href: "#" },
@@ -45,7 +45,7 @@ export function Footer() {
                   <social.icon className="w-4 h-4" />
                 </a>
               ))}
-            </div>
+            </div> */}
           </div>
 
           {/* Quick Links */}

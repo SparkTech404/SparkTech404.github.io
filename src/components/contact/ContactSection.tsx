@@ -230,7 +230,7 @@ export function ContactSection() {
             </div>
 
             {/* Social Media Icons */}
-            <div className="mt-8 pt-6 border-t border-white/10">
+            {/* <div className="mt-8 pt-6 border-t border-white/10">
               <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-3">
                 Follow Our Social Networks
               </span>
@@ -251,7 +251,7 @@ export function ContactSection() {
                   </a>
                 ))}
               </div>
-            </div>
+            </div> */}
           </motion.div>
 
           {/* Right Glass Card: Interactive Contact Form */}
