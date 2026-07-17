@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { HeroSection } from "@/components/hero/HeroSection";
 import { StatisticsSection } from "@/components/statistics/StatisticsSection";
 import { WhyChooseSection } from "@/components/why-choose/WhyChooseSection";
@@ -5,6 +6,18 @@ import { TechnologiesSection } from "@/components/technologies/TechnologiesSecti
 import { TestimonialsSection } from "@/components/testimonials/TestimonialsSection";
 import { PricingSection } from "@/components/pricing/PricingSection";
 import { CtaBanner } from "@/components/cta/CtaBanner";
+
+export const metadata: Metadata = {
+  title: "Spark Tech Web Solution | Premium Web Development Agency",
+  description:
+    "Spark Tech Web Solution offers premium web development, modern landing pages, and scalable web applications. Elevate your brand with our custom software solutions.",
+  openGraph: {
+    title: "Spark Tech Web Solution | Premium Web Development Agency",
+    description:
+      "Spark Tech Web Solution offers premium web development, modern landing pages, and scalable web applications. Elevate your brand with our custom software solutions.",
+    url: "https://sparktech404.github.io",
+  },
+};
 
 export default function HomePage() {
   return (
