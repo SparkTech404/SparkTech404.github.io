@@ -130,7 +130,11 @@ export function HeroSection() {
 
               {/* Description */}
               <p className="text-slate-300 text-base sm:text-lg leading-relaxed mb-8 max-w-xl">
-                We build modern websites, landing pages, and scalable web applications that help businesses grow faster. From startups to enterprises, we deliver secure, high-performance digital solutions with long-term support.
+                We build modern, high-performance digital solutions that help businesses establish a strong online presence, streamline operations, and accelerate growth. Whether it's a startup launching its first product, a growing business expanding its digital reach, or an enterprise modernizing its infrastructure, we design and develop websites, landing pages, custom web applications, and business platforms tailored to specific goals.
+
+Every project is built with a focus on speed, security, scalability, and user experience. Our development process combines responsive design, clean code architecture, SEO best practices, and performance optimization to ensure every solution delivers measurable business value across all devices and platforms.
+
+Beyond development, we partner with clients throughout the entire product lifecycle—from strategy and UI/UX design to deployment, maintenance, feature enhancements, and long-term technical support. We create solutions that are not only visually compelling but also reliable, future-ready, and capable of growing alongside the business. Whether the objective is generating leads, improving customer engagement, automating workflows, or building a scalable SaaS platform, we deliver technology that drives real business outcomes.
               </p>
             </div>
 
