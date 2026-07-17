@@ -1,0 +1,16 @@
+import { AboutSection } from "@/components/about/AboutSection";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About Us | Spark Tech Web Solution",
+  description:
+    "Learn about Spark Tech Web Solution, our mission, vision, and how our experienced team builds premium digital solutions.",
+};
+
+export default function AboutPage() {
+  return (
+    <div className="py-8">
+      <AboutSection />
+    </div>
+  );
+}
