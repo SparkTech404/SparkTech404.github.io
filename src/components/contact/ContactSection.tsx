@@ -47,16 +47,31 @@ export function ContactSection() {
     setErrorMessage("");
 
     try {
-      const response = await fetch("/api/contact", {
+      // Append Web3Forms access key and settings
+      const payload = {
+        ...formData,
+        access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "46e5c165-5f74-4741-b028-bd8f06064908", 
+        subject: `New Project Inquiry from ${formData.name}`,
+        from_name: "Spark Tech Web Solution Portal",
+      };
+
+      if (!payload.access_key) {
+        throw new Error("Web3Forms access key is missing. Please configure it in your environment variables.");
+      }
+
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
       });
 
       const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to submit message.");
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || "Failed to submit message.");
       }
 
       setStatus("success");
