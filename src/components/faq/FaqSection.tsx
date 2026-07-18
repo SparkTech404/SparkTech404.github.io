@@ -2,119 +2,169 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, Sparkles, HelpCircle } from "lucide-react";
+import { Plus } from "lucide-react";
 import Link from "next/link";
 
 const faqs = [
   {
     question: "How long does a website take to build and launch?",
     answer:
-      "A standard modern website or landing page typically takes 1 to 3 weeks from initial design consultation to final deployment. More complex custom web applications, SaaS platforms, or e-commerce stores with extensive integrations usually take between 4 to 8 weeks depending on exact scope and feature requirements.",
+      "A standard modern website or landing page typically takes 1–3 weeks from initial design consultation to final deployment. More complex custom web applications, SaaS platforms, or e-commerce stores with extensive integrations usually take 4–8 weeks depending on exact scope and feature requirements.",
   },
   {
     question: "Do you redesign existing websites?",
     answer:
-      "Yes! We specialize in revamping outdated, slow, or poorly converting websites. We modernize your UI/UX with contemporary glassmorphism and clean typography, migrate your platform to Next.js/React, and optimize Core Web Vitals to dramatically boost loading speeds and search engine rankings.",
+      "Yes. We specialize in revamping outdated, slow, or poorly converting websites. We modernize your UI/UX with contemporary design, migrate your platform to Next.js/React, and optimize Core Web Vitals to dramatically boost loading speeds and search engine rankings.",
   },
   {
     question: "Do you provide hosting and cloud deployment support?",
     answer:
-      "Absolutely. Whether your application is hosted on AWS, Google Cloud Platform (GCP), Microsoft Azure, Vercel, or custom dedicated VPS servers, we handle total configuration, SSL certificates, domain DNS management, automated CI/CD pipelines, and high-availability cloud architecture setup.",
+      "Absolutely. Whether your application is hosted on AWS, Google Cloud Platform, Azure, Vercel, or a custom VPS, we handle full configuration — SSL certificates, domain DNS, automated CI/CD pipelines, and high-availability cloud architecture.",
   },
   {
     question: "Can you maintain and optimize existing websites?",
     answer:
-      "Yes, we provide ongoing 24/7 technical support, security improvements, database optimization, cloud backup scheduling, and speed enhancement packages for existing websites regardless of where they are currently hosted.",
+      "Yes. We provide 24/7 technical support, security improvements, database optimization, cloud backup scheduling, and speed enhancement packages for existing websites regardless of their current host.",
   },
   {
     question: "Do you build custom web applications and enterprise tools?",
     answer:
-      "Yes! We build high-scale custom SaaS web applications, internal enterprise dashboards, real-time data monitoring systems, and secure API bridges using full-stack technologies like Next.js 15, React 19, TypeScript, Node.js, Express, MongoDB, and Firebase.",
+      "Yes. We build high-scale SaaS web applications, internal enterprise dashboards, real-time data monitoring systems, and secure API integrations using full-stack technologies including Next.js 15, React 19, TypeScript, Node.js, MongoDB, and Firebase.",
   },
 ];
 
 export function FaqSection() {
   const [openIdx, setOpenIdx] = useState<number | null>(0);
 
-  const toggleAccordion = (idx: number) => {
-    setOpenIdx(openIdx === idx ? null : idx);
-  };
-
   return (
-    <section id="faq" className="relative py-20 sm:py-28 overflow-hidden">
-      {/* Background Lighting */}
-      <div className="absolute bottom-0 right-10 w-96 h-96 bg-purple-600/10 rounded-full blur-[140px] pointer-events-none" />
-
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-400 text-xs sm:text-sm font-semibold tracking-wide mb-4"
-          >
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Frequently Asked Questions</span>
-          </motion.div>
-          
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight"
-          >
-            Everything You Need to <span className="text-gradient">Know</span>
-          </motion.h2>
-          
+    <section
+      id="faq"
+      style={{
+        paddingTop: "clamp(48px, 7vw, 80px)",
+        paddingBottom: "clamp(64px, 8vw, 100px)",
+      }}
+    >
+      <div className="section-container" style={{ maxWidth: "860px" }}>
+        {/* Page header */}
+        <div style={{ marginBottom: "clamp(40px, 5vw, 60px)" }}>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-slate-400 text-base sm:text-lg leading-relaxed mt-4"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            style={{
+              fontFamily: "'Geist Mono', monospace",
+              fontSize: "0.72rem",
+              color: "var(--volt)",
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              marginBottom: "16px",
+              fontWeight: 500,
+            }}
           >
-            Have questions about our process, timelines, or technical capabilities? We have answers.
+            FAQ
+          </motion.p>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.08 }}
+            style={{
+              fontFamily: "'Syne', sans-serif",
+              fontWeight: 800,
+              fontSize: "clamp(2rem, 5vw, 3.6rem)",
+              letterSpacing: "-0.035em",
+              lineHeight: 1.07,
+              color: "var(--ink)",
+              maxWidth: "20ch",
+              marginBottom: "16px",
+            }}
+          >
+            Everything you need to{" "}
+            <span style={{ color: "var(--volt)" }}>know.</span>
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.16 }}
+            style={{
+              fontFamily: "'Geist', sans-serif",
+              fontSize: "clamp(0.9375rem, 1.4vw, 1.0625rem)",
+              color: "var(--ink-2)",
+              lineHeight: 1.7,
+              maxWidth: "50ch",
+            }}
+          >
+            Questions about our process, timelines, or technical capabilities? We have answers.
           </motion.p>
         </div>
 
-        {/* Accordion List */}
-        <div className="space-y-4">
+        {/* Accordion */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "0" }}>
           {faqs.map((faq, idx) => {
             const isOpen = openIdx === idx;
-
             return (
               <motion.div
                 key={faq.question}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: idx * 0.08 }}
-                className={`glass-card overflow-hidden border transition-all duration-300 ${
-                  isOpen
-                    ? "border-cyan-500/50 bg-slate-900/90 shadow-lg shadow-cyan-500/10"
-                    : "border-white/10 hover:border-white/20 bg-slate-950/60"
-                }`}
+                transition={{ duration: 0.4, delay: idx * 0.06 }}
+                style={{
+                  borderBottom: "1px solid var(--surface-border-subtle)",
+                }}
               >
                 <button
                   type="button"
-                  onClick={() => toggleAccordion(idx)}
-                  className="w-full px-6 sm:px-8 py-5 sm:py-6 text-left flex items-center justify-between gap-4 focus:outline-none"
+                  onClick={() => setOpenIdx(isOpen ? null : idx)}
                   aria-expanded={isOpen}
+                  style={{
+                    width: "100%",
+                    padding: "clamp(18px, 2.5vw, 24px) 0",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    gap: "16px",
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                    textAlign: "left",
+                  }}
                 >
-                  <div className="flex items-center gap-3.5">
-                    <div className={`p-2 rounded-xl transition-colors ${isOpen ? "bg-cyan-500/20 text-cyan-400" : "bg-white/5 text-slate-400"}`}>
-                      <HelpCircle className="w-5 h-5 flex-shrink-0" />
-                    </div>
-                    <span className={`text-base sm:text-lg font-bold transition-colors ${isOpen ? "text-cyan-300" : "text-white"}`}>
-                      {faq.question}
-                    </span>
-                  </div>
-                  
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-transform duration-300 flex-shrink-0 ${isOpen ? "bg-cyan-500/20 text-cyan-400 rotate-180" : "bg-white/5 text-slate-400"}`}>
-                    <ChevronDown className="w-4 h-4" />
+                  <span
+                    style={{
+                      fontFamily: "'Syne', sans-serif",
+                      fontWeight: 700,
+                      fontSize: "clamp(0.9375rem, 1.5vw, 1.0625rem)",
+                      color: isOpen ? "var(--volt)" : "var(--ink)",
+                      letterSpacing: "-0.015em",
+                      lineHeight: 1.3,
+                      transition: "color 200ms ease",
+                    }}
+                  >
+                    {faq.question}
+                  </span>
+                  <div
+                    style={{
+                      width: "32px",
+                      height: "32px",
+                      borderRadius: "var(--radius-sm)",
+                      background: isOpen ? "var(--volt-dim)" : "var(--surface-high)",
+                      border: `1px solid ${isOpen ? "var(--volt-border)" : "var(--surface-border-subtle)"}`,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flexShrink: 0,
+                      transition: "all 200ms ease",
+                    }}
+                  >
+                    <Plus
+                      className="w-4 h-4"
+                      style={{
+                        color: isOpen ? "var(--volt)" : "var(--ink-3)",
+                        transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
+                        transition: "transform 250ms ease",
+                      }}
+                      strokeWidth={2}
+                    />
                   </div>
                 </button>
 
@@ -124,11 +174,20 @@ export function FaqSection() {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      transition={{ duration: 0.25, ease: "easeOut" }}
+                      style={{ overflow: "hidden" }}
                     >
-                      <div className="px-6 sm:px-8 pb-6 sm:pb-7 pt-2 text-slate-300 text-sm sm:text-base leading-relaxed border-t border-white/5">
+                      <p
+                        style={{
+                          fontFamily: "'Geist', sans-serif",
+                          fontSize: "clamp(0.875rem, 1.2vw, 1rem)",
+                          color: "var(--ink-2)",
+                          lineHeight: 1.7,
+                          paddingBottom: "clamp(16px, 2vw, 24px)",
+                        }}
+                      >
                         {faq.answer}
-                      </div>
+                      </p>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -137,16 +196,36 @@ export function FaqSection() {
           })}
         </div>
 
-        {/* Still have questions CTA */}
-        <div className="mt-12 text-center">
-          <p className="text-slate-400 text-sm">
-            Still have specific requirements or questions?{" "}
-            <Link href="/contact" className="text-cyan-400 font-bold underline hover:text-cyan-300 transition-colors">
-              Get in touch with our team directly &rarr;
+        {/* Bottom CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5 }}
+          style={{ marginTop: "clamp(28px, 4vw, 40px)" }}
+        >
+          <p
+            style={{
+              fontFamily: "'Geist', sans-serif",
+              fontSize: "0.9375rem",
+              color: "var(--ink-3)",
+            }}
+          >
+            Still have questions?{" "}
+            <Link
+              href="/contact"
+              style={{
+                color: "var(--volt)",
+                fontWeight: 600,
+                textDecoration: "underline",
+                textDecorationColor: "var(--volt-border)",
+                textUnderlineOffset: "3px",
+              }}
+            >
+              Talk to our team directly →
             </Link>
           </p>
-        </div>
-
+        </motion.div>
       </div>
     </section>
   );

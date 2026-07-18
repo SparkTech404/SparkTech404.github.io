@@ -1,12 +1,28 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Syne, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/navbar/Navbar";
 import { Footer } from "@/components/footer/Footer";
+import { ScrollProgress } from "@/components/ui/ScrollProgress";
 
-const inter = Inter({
+const syne = Syne({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-syne",
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+});
+
+const geist = Geist({
+  subsets: ["latin"],
+  variable: "--font-geist",
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+});
+
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
@@ -72,15 +88,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark scroll-smooth">
-      <body className={`${inter.variable} font-sans bg-[#030712] text-slate-100 antialiased relative min-h-screen flex flex-col`}>
-        {/* Futuristic Floating Mesh Background Lights */}
-        <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-          <div className="absolute top-[-10%] left-[-10%] w-[500px] sm:w-[700px] h-[500px] sm:h-[700px] rounded-full bg-blue-600/15 blur-[130px] animate-pulse" />
-          <div className="absolute top-[30%] right-[-10%] w-[600px] sm:w-[800px] h-[600px] sm:h-[800px] rounded-full bg-purple-600/15 blur-[150px]" />
-          <div className="absolute bottom-[-10%] left-[20%] w-[600px] sm:w-[700px] h-[600px] sm:h-[700px] rounded-full bg-cyan-500/15 blur-[140px]" />
-        </div>
-
+    <html lang="en" className="dark scroll-smooth" suppressHydrationWarning>
+      <body className={`${syne.variable} ${geist.variable} ${geistMono.variable} antialiased relative min-h-screen flex flex-col`}
+        style={{ backgroundColor: "var(--surface)", color: "var(--ink)" }}
+      >
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -100,9 +111,10 @@ export default function RootLayout({
           }}
         />
 
+        <ScrollProgress />
         <Navbar />
         
-        <main className="relative z-10 flex-grow pt-24">
+        <main className="relative z-10 flex-grow" style={{ paddingTop: "88px" }}>
           {children}
         </main>
 

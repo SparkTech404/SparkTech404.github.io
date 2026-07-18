@@ -2,164 +2,211 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import {
-  Zap,
-  Clock,
-  ShieldCheck,
-  Search,
-  Smartphone,
-  Gauge,
-  Tag,
-  Sparkles,
-} from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, Phone, CheckCircle2 } from "lucide-react";
 
-const advantages = [
-  {
-    title: "Modern Technologies",
-    description: "Built on Next.js 15, React 19, TypeScript, and Tailwind CSS for peak velocity and enterprise security.",
-    icon: Zap,
-    colSpan: "col-span-1 md:col-span-2 lg:col-span-1",
-    color: "text-cyan-400",
-    bg: "from-cyan-600/20 to-blue-900/10",
-    border: "border-cyan-500/30 hover:border-cyan-400",
-  },
-  {
-    title: "Fast Delivery",
-    description: "Agile sprints and structured milestone delivery ensure your product launches on exact schedule without delays.",
-    icon: Clock,
-    colSpan: "col-span-1 md:col-span-1 lg:col-span-1",
-    color: "text-blue-400",
-    bg: "from-blue-600/20 to-purple-900/10",
-    border: "border-blue-500/30 hover:border-blue-400",
-  },
-  {
-    title: "Secure Development",
-    description: "Multi-layered defense, HTTPS encryption, XSS protection, and strict authentication best practices built-in.",
-    icon: ShieldCheck,
-    colSpan: "col-span-1 md:col-span-1 lg:col-span-2",
-    color: "text-purple-400",
-    bg: "from-purple-600/20 to-pink-900/10",
-    border: "border-purple-500/30 hover:border-purple-400",
-  },
-  {
-    title: "SEO Friendly",
-    description: "Semantic HTML architecture, dynamic OpenGraph metadata, and Schema.org rich snippets for high ranking.",
-    icon: Search,
-    colSpan: "col-span-1 md:col-span-1 lg:col-span-1",
-    color: "text-emerald-400",
-    bg: "from-emerald-600/20 to-teal-900/10",
-    border: "border-emerald-500/30 hover:border-emerald-400",
-  },
-  {
-    title: "Mobile Responsive",
-    description: "Mobile-first layouts crafted to look and feel flawless across smartphones, tablets, laptops, and 4K displays.",
-    icon: Smartphone,
-    colSpan: "col-span-1 md:col-span-1 lg:col-span-1",
-    color: "text-blue-400",
-    bg: "from-blue-600/20 to-cyan-900/10",
-    border: "border-blue-500/30 hover:border-blue-400",
-  },
-  {
-    title: "Performance Optimized",
-    description: "Zero bloat, automated image compression, code splitting, and edge CDN caching delivering 95+ Lighthouse scores.",
-    icon: Gauge,
-    colSpan: "col-span-1 md:col-span-1 lg:col-span-1",
-    color: "text-cyan-400",
-    bg: "from-cyan-600/20 to-blue-900/10",
-    border: "border-cyan-500/30 hover:border-cyan-400",
-  },
-  {
-    title: "Affordable Pricing",
-    description: "Transparent, value-driven investment plans tailored for ambitious startups and expanding corporate enterprises.",
-    icon: Tag,
-    colSpan: "col-span-1 md:col-span-1 lg:col-span-1",
-    color: "text-amber-400",
-    bg: "from-amber-600/20 to-orange-900/10",
-    border: "border-amber-500/30 hover:border-amber-400",
-  },
+const features = [
+  "Fast, on-schedule delivery with agile sprints",
+  "Modern tech: Next.js, React 19, TypeScript",
+  "SEO-first architecture with structured data",
+  "Enterprise-grade security baked in from day one",
+  "Mobile-first, responsive across every screen size",
+  "95+ Lighthouse performance scores, guaranteed",
+  "Transparent, affordable pricing — no hidden fees",
+  "24/7 post-launch support and maintenance",
 ];
 
 export function WhyChooseSection() {
   return (
-    <section className="relative py-20 sm:py-28 overflow-hidden">
-      {/* Background Lighting */}
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-blue-600/10 rounded-full blur-[140px] pointer-events-none" />
+    <section
+      style={{
+        paddingTop: "clamp(64px, 8vw, 100px)",
+        paddingBottom: "clamp(64px, 8vw, 100px)",
+        borderTop: "1px solid var(--surface-border-subtle)",
+      }}
+    >
+      <div className="section-container">
+        <div
+          className="why-choose-grid"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+            gap: "clamp(40px, 6vw, 80px)",
+            alignItems: "start",
+          }}
+        >
+          {/* Left: Headline block */}
+          <div>
+            <motion.p
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              style={{
+                fontFamily: "var(--font-geist-mono), monospace",
+                fontSize: "0.72rem",
+                color: "var(--volt)",
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                marginBottom: "20px",
+                fontWeight: 500,
+              }}
+            >
+              Why Spark Tech
+            </motion.p>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs sm:text-sm font-semibold tracking-wide mb-4"
-          >
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>The Spark Tech Advantage</span>
-          </motion.div>
-          
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight"
-          >
-            Why Industry Leaders Choose <span className="text-gradient">Our Agency</span>
-          </motion.h2>
-          
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-slate-400 text-base sm:text-lg leading-relaxed mt-4"
-          >
-            We merge technological mastery with crystal-clear communication and dedicated support to build lasting partnerships.
-          </motion.p>
-        </div>
-
-        {/* 8 Premium Bento Grid Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {advantages.map((item, idx) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 30 }}
+            <motion.h2
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.08 }}
-              whileHover={{ y: -6 }}
-              className={`glass-card p-7 flex flex-col justify-between group relative overflow-hidden bg-gradient-to-br ${item.bg} border ${item.border} transition-all duration-300 shadow-xl ${item.colSpan}`}
+              transition={{ duration: 0.65, delay: 0.08, ease: [0.16, 1, 0.3, 1] as const }}
+              style={{
+                fontFamily: "var(--font-syne), 'Syne', sans-serif",
+                fontWeight: 800,
+                fontSize: "clamp(2rem, 4vw, 3.2rem)",
+                letterSpacing: "-0.03em",
+                lineHeight: 1.08,
+                color: "var(--ink)",
+                marginBottom: "24px",
+              }}
             >
-              {/* Glow Corner */}
-              <div className="absolute -right-8 -bottom-8 w-28 h-28 rounded-full bg-white/5 blur-2xl group-hover:bg-white/10 transition-all pointer-events-none" />
+              Built to outperform.<br />
+              Designed to{" "}
+              <motion.span
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.35, duration: 0.5 }}
+                style={{ color: "var(--volt)", display: "inline-block" }}
+              >
+                last.
+              </motion.span>
+            </motion.h2>
 
-              <div>
-                <div className="flex items-center justify-between mb-6">
-                  <div className={`p-3.5 rounded-2xl bg-slate-900/90 border border-white/10 ${item.color} shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                    <item.icon className="w-6 h-6" />
-                  </div>
-                  <span className="w-2 h-2 rounded-full bg-slate-600 group-hover:bg-cyan-400 transition-colors" />
-                </div>
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.18 }}
+              style={{
+                fontFamily: "var(--font-geist), 'Geist', sans-serif",
+                fontSize: "clamp(0.9375rem, 1.4vw, 1.0625rem)",
+                color: "var(--ink-2)",
+                lineHeight: 1.7,
+                marginBottom: "36px",
+                maxWidth: "42ch",
+              }}
+            >
+              We merge technical mastery with honest communication. Every decision
+              we make is driven by your business outcomes — not scope creep.
+            </motion.p>
 
-                <h3 className="text-xl font-bold text-white mb-2.5 group-hover:text-cyan-300 transition-colors">
-                  {item.title}
-                </h3>
-
-                <p className="text-slate-300 text-sm leading-relaxed">
-                  {item.description}
-                </p>
-              </div>
-
-              <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-xs font-semibold text-slate-400 group-hover:text-slate-200">
-                <span>Spark Guaranteed</span>
-                <span className="text-cyan-400">★ ★ ★ ★ ★</span>
-              </div>
+            {/* Stat callout */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.28, duration: 0.5, ease: [0.16, 1, 0.3, 1] as const }}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "14px",
+                background: "var(--volt-dim)",
+                border: "1px solid var(--volt-border)",
+                borderRadius: "var(--radius-md)",
+                padding: "14px 20px",
+                marginBottom: "28px",
+              }}
+            >
+              <span style={{
+                fontFamily: "var(--font-geist-mono), monospace",
+                fontWeight: 600,
+                fontSize: "1.6rem",
+                color: "var(--volt)",
+                letterSpacing: "-0.02em",
+              }}>
+                99%
+              </span>
+              <span style={{
+                fontFamily: "var(--font-geist), 'Geist', sans-serif",
+                fontSize: "0.8125rem",
+                color: "var(--ink-2)",
+                lineHeight: 1.4,
+              }}>
+                Client satisfaction<br />across all projects
+              </span>
             </motion.div>
-          ))}
-        </div>
 
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.34 }}
+              style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}
+            >
+              <Link href="/contact" className="btn-volt">
+                Work With Us
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <a
+                href="https://wa.me/917060675133"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-ghost"
+              >
+                <Phone className="w-4 h-4" />
+                WhatsApp Us
+              </a>
+            </motion.div>
+          </div>
+
+          {/* Right: Feature list — slide in from right */}
+          <div>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              {features.map((feature, i) => (
+                <motion.div
+                  key={feature}
+                  initial={{ opacity: 0, x: 24 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.07, duration: 0.45, ease: [0.16, 1, 0.3, 1] as const }}
+                  whileHover={{ x: 4 }}
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: "14px",
+                    padding: "15px 0",
+                    borderBottom: i < features.length - 1 ? "1px solid var(--surface-border-subtle)" : "none",
+                    cursor: "default",
+                    transition: "background 200ms ease",
+                  }}
+                >
+                  <motion.div
+                    whileHover={{ scale: 1.3, rotate: 5 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <CheckCircle2
+                      className="w-4 h-4"
+                      style={{ color: "var(--volt)", flexShrink: 0, marginTop: "2px" }}
+                      strokeWidth={2}
+                    />
+                  </motion.div>
+                  <span
+                    style={{
+                      fontFamily: "var(--font-geist), 'Geist', sans-serif",
+                      fontSize: "0.9375rem",
+                      color: "var(--ink-2)",
+                      lineHeight: 1.5,
+                      fontWeight: 400,
+                    }}
+                  >
+                    {feature}
+                  </span>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

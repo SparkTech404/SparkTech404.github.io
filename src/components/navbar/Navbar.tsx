@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, Menu, X, ChevronRight } from "lucide-react";
+import { Zap, Menu, X, ArrowRight, ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -16,119 +17,385 @@ const navLinks = [
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close drawer on route change
+  useEffect(() => {
+    setDrawerOpen(false);
+  }, [pathname]);
+
+  // Prevent body scroll when drawer is open
+  useEffect(() => {
+    if (drawerOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [drawerOpen]);
+
+  const closeDrawer = useCallback(() => setDrawerOpen(false), []);
+
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
+
   return (
     <>
+      {/* ── Navbar ── */}
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? "glass-navbar py-4 shadow-2xl shadow-blue-950/20"
-            : "bg-transparent py-6"
-        }`}
+        className="fixed top-0 left-0 right-0 z-50"
+        style={{ padding: "12px clamp(1rem, 4vw, 2.5rem)" }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+        <div
+          className="max-w-screen-xl mx-auto flex items-center justify-between transition-all duration-300"
+          style={
+            isScrolled
+              ? {
+                  background: "oklch(8.5% 0.014 265 / 0.92)",
+                  backdropFilter: "blur(20px)",
+                  WebkitBackdropFilter: "blur(20px)",
+                  border: "1px solid var(--surface-border-subtle)",
+                  borderRadius: "var(--radius-lg)",
+                  padding: "10px 20px",
+                }
+              : { padding: "6px 0" }
+          }
+        >
           {/* Logo */}
           <Link
             href="/"
-            className="flex items-center gap-2 group text-white text-xl sm:text-2xl font-bold tracking-tight"
+            className="flex items-center gap-2.5 group flex-shrink-0"
+            style={{ textDecoration: "none" }}
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 via-purple-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:scale-105 transition-transform duration-300">
-              <Sparkles className="w-5 h-5 text-white animate-pulse" />
+            <div
+              style={{
+                width: "34px",
+                height: "34px",
+                borderRadius: "8px",
+                background: "var(--volt)",
+                color: "oklch(8% 0.014 265)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+              }}
+            >
+              <Zap className="w-4 h-4" strokeWidth={2.5} />
             </div>
-            <span className="flex flex-col">
-              <span className="text-gradient font-black tracking-wide leading-none">
+            <div style={{ display: "flex", flexDirection: "column", lineHeight: 1 }}>
+              <span
+                style={{
+                  fontFamily: "var(--font-syne), 'Syne', sans-serif",
+                  fontWeight: 800,
+                  fontSize: "0.9375rem",
+                  color: "var(--ink)",
+                  letterSpacing: "-0.02em",
+                }}
+              >
                 SPARK TECH
               </span>
-              <span className="text-[10px] uppercase font-semibold tracking-[0.2em] text-slate-400 mt-1">
-                Web Solution
+              <span
+                style={{
+                  fontFamily: "var(--font-geist-mono), 'Geist Mono', monospace",
+                  fontSize: "0.6rem",
+                  color: "var(--ink-3)",
+                  letterSpacing: "0.07em",
+                  marginTop: "2px",
+                }}
+              >
+                WEB SOLUTION
               </span>
-            </span>
+            </div>
           </Link>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1 lg:gap-2 bg-slate-900/40 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/10">
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-0.5">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className="px-3.5 py-1.5 rounded-full text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-200"
+                style={{
+                  fontFamily: "var(--font-geist), 'Geist', sans-serif",
+                  fontWeight: 500,
+                  fontSize: "0.875rem",
+                  color: isActive(link.href) ? "var(--volt)" : "var(--ink-2)",
+                  padding: "6px 13px",
+                  borderRadius: "var(--radius-sm)",
+                  transition: "color 150ms ease",
+                  textDecoration: "none",
+                  whiteSpace: "nowrap",
+                }}
               >
                 {link.name}
               </Link>
             ))}
           </nav>
 
-          {/* CTA Button */}
-          <div className="hidden md:flex items-center gap-4">
+          {/* Desktop CTA */}
+          <div className="hidden md:flex items-center">
             <Link
               href="/contact"
-              className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-semibold rounded-full group bg-gradient-to-br from-blue-600 via-purple-600 to-cyan-500 group-hover:from-blue-600 group-hover:to-cyan-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-800 shadow-md shadow-blue-500/20 hover:shadow-cyan-500/30 transition-all duration-300"
+              className="btn-volt"
+              style={{ padding: "9px 18px", fontSize: "0.875rem" }}
             >
-              <span className="relative px-5 py-2 transition-all ease-in duration-200 bg-slate-950 rounded-full group-hover:bg-transparent flex items-center gap-1.5">
-                Get Started
-                <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-              </span>
+              Get a Quote
+              <ArrowRight className="w-3.5 h-3.5" strokeWidth={2} />
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Hamburger */}
           <button
             type="button"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-xl bg-white/5 border border-white/10 text-slate-300 hover:text-white focus:outline-none"
-            aria-label="Toggle Menu"
+            onClick={() => setDrawerOpen(true)}
+            className="md:hidden flex items-center justify-center cursor-pointer"
+            style={{
+              width: "38px",
+              height: "38px",
+              borderRadius: "var(--radius-md)",
+              background: "var(--surface-raised)",
+              border: "1px solid var(--surface-border-subtle)",
+              color: "var(--ink-2)",
+              flexShrink: 0,
+            }}
+            aria-label="Open navigation menu"
           >
-            {mobileMenuOpen ? (
-              <X className="w-6 h-6 text-cyan-400" />
-            ) : (
-              <Menu className="w-6 h-6" />
-            )}
+            <Menu className="w-5 h-5" />
           </button>
         </div>
       </header>
 
-      {/* Mobile Drawer */}
+      {/* ── Mobile Side Panel Drawer ── */}
       <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.25 }}
-            className="fixed inset-x-0 top-[72px] z-40 bg-slate-950/95 backdrop-blur-2xl border-b border-white/10 px-6 py-8 md:hidden shadow-2xl shadow-purple-950/50"
-          >
-            <nav className="flex flex-col gap-3">
-              {navLinks.map((link) => (
+        {drawerOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              key="backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={closeDrawer}
+              style={{
+                position: "fixed",
+                inset: 0,
+                zIndex: 60,
+                background: "oklch(0% 0 0 / 0.7)",
+                backdropFilter: "blur(4px)",
+                WebkitBackdropFilter: "blur(4px)",
+              }}
+            />
+
+            {/* Side Panel */}
+            <motion.aside
+              key="drawer"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 28, stiffness: 280 }}
+              style={{
+                position: "fixed",
+                top: 0,
+                right: 0,
+                bottom: 0,
+                zIndex: 70,
+                width: "min(320px, 85vw)",
+                background: "var(--surface-raised)",
+                borderLeft: "1px solid var(--surface-border-subtle)",
+                display: "flex",
+                flexDirection: "column",
+                overflowY: "auto",
+              }}
+            >
+              {/* Drawer header */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  padding: "20px 24px",
+                  borderBottom: "1px solid var(--surface-border-subtle)",
+                  flexShrink: 0,
+                }}
+              >
+                {/* Logo in drawer */}
                 <Link
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="px-4 py-3 rounded-xl text-base font-semibold text-slate-200 hover:bg-gradient-to-r hover:from-blue-600/20 hover:to-purple-600/20 hover:text-cyan-400 border border-transparent hover:border-white/10 transition-all duration-200"
+                  href="/"
+                  onClick={closeDrawer}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
+                    textDecoration: "none",
+                  }}
                 >
-                  {link.name}
+                  <div
+                    style={{
+                      width: "32px",
+                      height: "32px",
+                      borderRadius: "7px",
+                      background: "var(--volt)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Zap className="w-4 h-4" style={{ color: "oklch(8% 0.014 265)" }} strokeWidth={2.5} />
+                  </div>
+                  <span
+                    style={{
+                      fontFamily: "var(--font-syne), 'Syne', sans-serif",
+                      fontWeight: 800,
+                      fontSize: "0.9375rem",
+                      color: "var(--ink)",
+                      letterSpacing: "-0.02em",
+                    }}
+                  >
+                    SPARK TECH
+                  </span>
                 </Link>
-              ))}
-              <div className="pt-4 border-t border-white/10 mt-2">
+
+                {/* Close button */}
+                <button
+                  type="button"
+                  onClick={closeDrawer}
+                  aria-label="Close menu"
+                  style={{
+                    width: "36px",
+                    height: "36px",
+                    borderRadius: "var(--radius-md)",
+                    background: "var(--surface-high)",
+                    border: "1px solid var(--surface-border-subtle)",
+                    color: "var(--ink-3)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "pointer",
+                    flexShrink: 0,
+                  }}
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Nav links */}
+              <nav
+                style={{
+                  padding: "12px 12px",
+                  flex: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "2px",
+                }}
+              >
+                {navLinks.map((link, i) => (
+                  <motion.div
+                    key={link.name}
+                    initial={{ opacity: 0, x: 16 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.05 + i * 0.05, duration: 0.25 }}
+                  >
+                    <Link
+                      href={link.href}
+                      onClick={closeDrawer}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        padding: "13px 16px",
+                        borderRadius: "var(--radius-md)",
+                        background: isActive(link.href) ? "var(--volt-dim)" : "transparent",
+                        border: isActive(link.href) ? "1px solid var(--volt-border)" : "1px solid transparent",
+                        textDecoration: "none",
+                        transition: "background 150ms ease, border-color 150ms ease",
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontFamily: "var(--font-syne), 'Syne', sans-serif",
+                          fontWeight: 700,
+                          fontSize: "1rem",
+                          color: isActive(link.href) ? "var(--volt)" : "var(--ink)",
+                          letterSpacing: "-0.01em",
+                        }}
+                      >
+                        {link.name}
+                      </span>
+                      <ChevronRight
+                        className="w-4 h-4"
+                        style={{
+                          color: isActive(link.href) ? "var(--volt)" : "var(--ink-3)",
+                        }}
+                        strokeWidth={2}
+                      />
+                    </Link>
+                  </motion.div>
+                ))}
+              </nav>
+
+              {/* Drawer footer CTA */}
+              <div
+                style={{
+                  padding: "20px 24px 32px",
+                  borderTop: "1px solid var(--surface-border-subtle)",
+                  flexShrink: 0,
+                }}
+              >
                 <Link
                   href="/contact"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="w-full py-3.5 rounded-xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-500 text-white flex items-center justify-center gap-2 shadow-lg shadow-blue-500/30"
+                  onClick={closeDrawer}
+                  className="btn-volt"
+                  style={{ width: "100%", justifyContent: "center", fontSize: "1rem" }}
                 >
-                  Get Started Now
-                  <ChevronRight className="w-4 h-4" />
+                  Get a Free Quote
+                  <ArrowRight className="w-4 h-4" />
                 </Link>
+
+                {/* Contact snippets */}
+                <div style={{ marginTop: "16px", display: "flex", flexDirection: "column", gap: "8px" }}>
+                  <a
+                    href="https://wa.me/917060675133"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      fontFamily: "var(--font-geist), 'Geist', sans-serif",
+                      fontSize: "0.8125rem",
+                      color: "var(--ink-3)",
+                      textDecoration: "none",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                    }}
+                  >
+                    <span className="dot-volt" style={{ width: "6px", height: "6px", flexShrink: 0 }} />
+                    +91 7060675133 (WhatsApp)
+                  </a>
+                  <a
+                    href="mailto:sparktech1404@gmail.com"
+                    style={{
+                      fontFamily: "var(--font-geist), 'Geist', sans-serif",
+                      fontSize: "0.8125rem",
+                      color: "var(--ink-3)",
+                      textDecoration: "none",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                    }}
+                  >
+                    <span className="dot-volt" style={{ width: "6px", height: "6px", flexShrink: 0 }} />
+                    sparktech1404@gmail.com
+                  </a>
+                </div>
               </div>
-            </nav>
-          </motion.div>
+            </motion.aside>
+          </>
         )}
       </AnimatePresence>
     </>

@@ -1,108 +1,572 @@
 @import "tailwindcss";
 
-@theme {
-  --color-primary: #2563EB;
-  --color-purple: #7C3AED;
-  --color-cyan: #06B6D4;
-  --color-dark-bg: #030712;
-  --color-dark-card: rgba(15, 23, 42, 0.6);
-  --color-dark-border: rgba(255, 255, 255, 0.08);
-}
 
+/* ─── Design Tokens ──────────────────────────────────────────────────────── */
 :root {
-  --background: #030712;
-  --foreground: #f8fafc;
+  /* Surface */
+  --surface:         oklch(8.5% 0.014 265);
+  --surface-raised:  oklch(11.5% 0.016 265);
+  --surface-high:    oklch(14% 0.018 265);
+  --surface-border:  oklch(20% 0.018 265);
+  --surface-border-subtle: oklch(16% 0.015 265);
+
+  /* Text */
+  --ink:    oklch(96% 0.006 265);
+  --ink-2:  oklch(72% 0.010 265);
+  --ink-3:  oklch(50% 0.010 265);
+
+  /* Brand accent — acid volt green */
+  --volt:        oklch(83% 0.28 120);
+  --volt-dim:    oklch(83% 0.28 120 / 0.12);
+  --volt-glow:   oklch(83% 0.28 120 / 0.25);
+  --volt-border: oklch(83% 0.28 120 / 0.35);
+
+  /* Semantic */
+  --background: var(--surface);
+  --foreground: var(--ink);
+
+  /* Radii */
+  --radius-sm:  6px;
+  --radius-md:  10px;
+  --radius-lg:  14px;
+
+  /* Shadows */
+  --shadow-card: 0 1px 3px oklch(0% 0 0 / 0.4), 0 4px 16px oklch(0% 0 0 / 0.3);
+  --shadow-volt: 0 0 32px oklch(83% 0.28 120 / 0.2);
 }
 
+/* ─── Base ───────────────────────────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
   color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background-color: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-geist), 'Geist', system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
-  selection-background-color: #2563EB;
-  selection-color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
 }
 
-/* Glassmorphism & Bento Utilities */
-.glass-card {
-  background: rgba(15, 23, 42, 0.65);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 24px;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+/* ─── Typography ─────────────────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-syne), 'Syne', system-ui, sans-serif;
+  font-weight: 700;
+  text-wrap: balance;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
 }
 
-.glass-card:hover {
-  border-color: rgba(255, 255, 255, 0.18);
-  box-shadow: 0 10px 30px -10px rgba(37, 99, 235, 0.25);
-  transform: translateY(-4px);
+p {
+  max-width: 68ch;
+  text-wrap: pretty;
 }
 
-.glass-navbar {
-  background: rgba(3, 7, 18, 0.75);
+/* ─── Selection ──────────────────────────────────────────────────────────── */
+::selection {
+  background-color: var(--volt);
+  color: oklch(8% 0.014 265);
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb {
+  background: var(--surface-border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--ink-3); }
+
+/* ─── Utility Classes ────────────────────────────────────────────────────── */
+
+/* Card — clean raised surface, no glass */
+.card {
+  background: var(--surface-raised);
+  border: 1px solid var(--surface-border-subtle);
+  border-radius: var(--radius-lg);
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.card:hover {
+  border-color: var(--surface-border);
+  box-shadow: var(--shadow-card);
+}
+
+/* Card with volt accent on hover */
+.card-volt:hover {
+  border-color: var(--volt-border);
+  box-shadow: 0 0 0 1px var(--volt-dim), var(--shadow-card);
+}
+
+/* Volt CTA button */
+.btn-volt {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--volt);
+  color: oklch(8% 0.014 265);
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  border-radius: var(--radius-md);
+  padding: 13px 28px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-volt:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-volt);
+}
+
+.btn-volt:active { transform: translateY(0); }
+
+/* Ghost button */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--ink-2);
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  border-radius: var(--radius-md);
+  padding: 12px 24px;
+  border: 1px solid var(--surface-border);
+  cursor: pointer;
+  transition: color 150ms ease, border-color 150ms ease, background 150ms ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-ghost:hover {
+  color: var(--ink);
+  border-color: var(--surface-border);
+  background: var(--surface-raised);
+}
+
+/* Volt text — single solid accent, NOT gradient */
+.text-volt {
+  color: var(--volt);
+}
+
+/* Volt underline decoration */
+.underline-volt {
+  text-decoration: underline;
+  text-decoration-color: var(--volt);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 6px;
+}
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: var(--surface-border-subtle);
+  border: none;
+}
+
+/* Volt dot indicator */
+.dot-volt {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--volt);
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* Section container */
+.section-container {
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 3rem);
+}
+
+/* Mono stat number */
+.stat-number {
+  font-family: 'Geist Mono', monospace;
+  font-weight: 600;
+  color: var(--volt);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+/* Navbar floating glass */
+.navbar-surface {
+  background: oklch(8.5% 0.014 265 / 0.9);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--surface-border-subtle);
+  border-radius: var(--radius-lg);
 }
 
-.glass-input {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 14px;
-  transition: all 0.2s ease;
+/* Tag / chip */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--ink-3);
+  background: var(--surface-high);
+  border: 1px solid var(--surface-border-subtle);
+  border-radius: 99px;
+  padding: 5px 12px;
+  letter-spacing: 0.02em;
 }
 
-.glass-input:focus {
+/* Volt tag variant */
+.tag-volt {
+  color: var(--volt);
+  background: var(--volt-dim);
+  border-color: var(--volt-border);
+}
+
+/* Animated volt line (decorative separator) */
+.volt-line {
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: var(--volt);
+  border-radius: 2px;
+}
+
+/* Input */
+.input-field {
+  width: 100%;
+  background: var(--surface-raised);
+  border: 1px solid var(--surface-border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--ink);
+  font-family: 'Geist', sans-serif;
+  font-size: 0.9375rem;
+  padding: 12px 16px;
   outline: none;
-  border-color: #06B6D4;
-  box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.15);
+  transition: border-color 200ms ease, box-shadow 200ms ease;
 }
 
-select option {
-  background-color: #0f172a;
-  color: #f8fafc;
-  padding: 8px 12px;
+.input-field::placeholder { color: var(--ink-3); }
+
+.input-field:focus {
+  border-color: var(--volt-border);
+  box-shadow: 0 0 0 3px var(--volt-dim);
 }
 
-.glow-blue {
-  box-shadow: 0 0 40px -10px rgba(37, 99, 235, 0.5);
+select.input-field option {
+  background-color: var(--surface-raised);
+  color: var(--ink);
 }
 
-.glow-purple {
-  box-shadow: 0 0 40px -10px rgba(124, 58, 237, 0.5);
+/* ─── Animations ─────────────────────────────────────────────────────────── */
+
+@keyframes volt-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 var(--volt-glow); }
+  50% { opacity: 0.7; box-shadow: 0 0 12px 4px var(--volt-glow); }
 }
 
-.glow-cyan {
-  box-shadow: 0 0 40px -10px rgba(6, 182, 212, 0.5);
+@keyframes slide-in-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.text-gradient {
-  background: linear-gradient(135deg, #2563EB 0%, #7C3AED 50%, #06B6D4 100%);
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+/* Shimmer — used on volt accent lines and CTA background */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Float — gentle up/down used on hero decorative elements */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
+/* Glow flicker on volt accent dots */
+@keyframes glow-flicker {
+  0%, 100% { box-shadow: 0 0 4px 1px var(--volt-glow); opacity: 1; }
+  40%       { box-shadow: 0 0 12px 4px var(--volt-glow); opacity: 0.8; }
+  60%       { box-shadow: 0 0 8px 2px var(--volt-glow); opacity: 1; }
+}
+
+/* Gradient border rotation */
+@keyframes border-spin {
+  0%   { --angle: 0deg; }
+  100% { --angle: 360deg; }
+}
+
+/* Text clip reveal */
+@keyframes clip-reveal {
+  from { clip-path: inset(0 100% 0 0); opacity: 0; }
+  to   { clip-path: inset(0 0% 0 0); opacity: 1; }
+}
+
+/* Spotlight sweep across CTA section */
+@keyframes spotlight {
+  0%   { transform: translateX(-100%) skewX(-15deg); opacity: 0; }
+  20%  { opacity: 0.07; }
+  80%  { opacity: 0.07; }
+  100% { transform: translateX(200%) skewX(-15deg); opacity: 0; }
+}
+
+/* Scale fade for cards */
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95) translateY(12px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Volt line draw */
+@keyframes line-draw {
+  from { scaleX: 0; }
+  to   { scaleX: 1; }
+}
+
+/* Orbit for decorative circles in hero */
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(120px) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
+}
+
+/* ─── Animation Utility Classes ─────────────────────────────────────────── */
+
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+.animate-marquee-reverse {
+  animation: marquee-reverse 32s linear infinite;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--volt) 0%,
+    oklch(95% 0.28 120) 40%,
+    var(--volt) 60%,
+    oklch(75% 0.28 120) 100%
+  );
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.bg-radial-gradient {
-  background: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.18) 0%, rgba(124, 58, 237, 0.12) 35%, rgba(3, 7, 18, 0) 70%);
+.animate-glow-pulse {
+  animation: glow-flicker 2.5s ease-in-out infinite;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+.animate-spotlight {
+  animation: spotlight 4s ease-in-out infinite;
 }
-::-webkit-scrollbar-track {
-  background: #030712;
+
+/* Stagger delay helpers */
+.delay-0   { animation-delay: 0ms; }
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-600 { animation-delay: 600ms; }
+
+/* Card hover 3D lift — applied via JS for precision */
+.card-hover-3d {
+  transform-style: preserve-3d;
+  transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1),
+              box-shadow 300ms cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform;
 }
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 4px;
+.card-hover-3d:hover {
+  transform: translateY(-6px) rotateX(2deg);
+  box-shadow: 0 24px 48px oklch(0% 0 0 / 0.35), 0 0 0 1px var(--surface-border);
 }
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.25);
+
+/* Volt underline animation */
+.volt-underline {
+  position: relative;
+  display: inline-block;
+}
+.volt-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--volt);
+  border-radius: 1px;
+  transition: width 350ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.volt-underline:hover::after,
+.volt-underline.active::after {
+  width: 100%;
+}
+
+/* Featured card animated volt border */
+@property --border-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.volt-border-animated {
+  border: 1px solid var(--volt-border);
+  position: relative;
+}
+.volt-border-animated::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--border-angle),
+    transparent 70%,
+    var(--volt) 85%,
+    transparent 100%
+  );
+  z-index: -1;
+  animation: border-spin 4s linear infinite;
+}
+
+@keyframes border-spin {
+  to { --border-angle: 360deg; }
+}
+
+/* ─── Reduced Motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── Mobile Responsive ──────────────────────────────────────────────────── */
+
+/* Ensure images and media don't overflow */
+img, video, svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Touch target minimum size */
+a, button {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Override min-height for inline/small elements */
+a.tag, span.tag, .dot-volt {
+  min-height: unset;
+  min-width: unset;
+}
+
+/* Make grid form inputs stack on mobile */
+@media (max-width: 640px) {
+  /* Contact form 2-col grid to 1-col */
+  .contact-grid-2col {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Services featured card — don't span 2 cols on mobile */
+  .services-featured {
+    grid-column: span 1 !important;
+  }
+
+  /* Navbar floating bar full-width on mobile */
+  .navbar-surface {
+    border-radius: var(--radius-md);
+  }
+
+  /* CTA banner side padding */
+  .cta-volt-section {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  /* Pricing grid single column */
+  .pricing-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Process step grid: collapse to single column */
+  .process-step-grid {
+    grid-template-columns: 44px 1fr !important;
+    gap: 16px !important;
+  }
+
+  /* Why choose 2-col grid: collapse */
+  .why-choose-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Footer grid: 2 col on mobile */
+  .footer-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* Testimonials nav */
+  .testimonials-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+
+  /* Hero CTA buttons full width on very small screens */
+  .hero-ctas {
+    flex-direction: column;
+  }
+
+  .hero-ctas a {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Stats grid: 2 col on mobile */
+  .stats-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Footer grid: single column on very small screens */
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Pricing card featured badge positioning */
+  .pricing-badge {
+    font-size: 0.65rem !important;
+  }
+}
+
+/* ─── Smooth active link indicator on desktop ────────────────────────────── */
+nav a[aria-current="page"] {
+  color: var(--volt);
 }

@@ -1,62 +1,26 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Award, Users, HeadphonesIcon, ThumbsUp } from "lucide-react";
 
 const stats = [
-  {
-    label: "Projects Delivered",
-    target: 100,
-    suffix: "+",
-    icon: Award,
-    color: "text-blue-400",
-    gradient: "from-blue-600/20 to-blue-900/10",
-    border: "border-blue-500/30",
-  },
-  {
-    label: "Happy Clients",
-    target: 50,
-    suffix: "+",
-    icon: Users,
-    color: "text-purple-400",
-    gradient: "from-purple-600/20 to-purple-900/10",
-    border: "border-purple-500/30",
-  },
-  {
-    label: "Technical Support",
-    target: 24,
-    suffix: "/7",
-    icon: HeadphonesIcon,
-    color: "text-cyan-400",
-    gradient: "from-cyan-600/20 to-cyan-900/10",
-    border: "border-cyan-500/30",
-  },
-  {
-    label: "Client Satisfaction",
-    target: 99,
-    suffix: "%",
-    icon: ThumbsUp,
-    color: "text-emerald-400",
-    gradient: "from-emerald-600/20 to-emerald-900/10",
-    border: "border-emerald-500/30",
-  },
+  { value: 100, suffix: "+", label: "Projects Shipped", detail: "Across 12+ industries", fillPercent: 100 },
+  { value: 50, suffix: "+", label: "Clients Served", detail: "Startups to enterprises", fillPercent: 50 },
+  { value: 99, suffix: "%", label: "Satisfaction Rate", detail: "Based on client feedback", fillPercent: 99 },
+  { value: 24, suffix: "/7", label: "Support Hours", detail: "Always on, always ready", fillPercent: 100 },
 ];
 
 function AnimatedNumber({ value, suffix }: { value: number; suffix: string }) {
   const [count, setCount] = useState(0);
-  const ref = React.useRef<HTMLSpanElement>(null);
+  const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true });
 
   useEffect(() => {
     if (!isInView) return;
-
     let start = 0;
     const end = value;
-    const duration = 2000;
-    const incrementTime = 25;
-    const step = Math.ceil(end / (duration / incrementTime));
-
+    const duration = 1800;
+    const step = Math.ceil(end / (duration / 16));
     const timer = setInterval(() => {
       start += step;
       if (start >= end) {
@@ -65,13 +29,12 @@ function AnimatedNumber({ value, suffix }: { value: number; suffix: string }) {
       } else {
         setCount(start);
       }
-    }, incrementTime);
-
+    }, 16);
     return () => clearInterval(timer);
   }, [isInView, value]);
 
   return (
-    <span ref={ref} className="font-extrabold font-mono tracking-tighter">
+    <span ref={ref}>
       {count}
       {suffix}
     </span>
@@ -80,39 +43,89 @@ function AnimatedNumber({ value, suffix }: { value: number; suffix: string }) {
 
 export function StatisticsSection() {
   return (
-    <section className="relative py-16 sm:py-24 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Banner Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {stats.map((stat, idx) => (
+    <section
+      style={{
+        borderTop: "1px solid var(--surface-border-subtle)",
+        borderBottom: "1px solid var(--surface-border-subtle)",
+      }}
+    >
+      <div className="section-container">
+        <div
+          className="stats-grid"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+            gap: "1px",
+            background: "var(--surface-border-subtle)",
+          }}
+        >
+          {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              whileHover={{ scale: 1.03, y: -4 }}
-              className={`glass-card p-6 sm:p-8 flex flex-col items-center justify-center text-center relative overflow-hidden bg-gradient-to-br ${stat.gradient} border ${stat.border} shadow-2xl group`}
+              transition={{ duration: 0.55, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] as const }}
+              whileHover={{ backgroundColor: "var(--surface-high)" }}
+              style={{
+                background: "var(--surface)",
+                padding: "clamp(24px, 4vw, 40px) clamp(16px, 2.5vw, 28px)",
+                display: "flex",
+                flexDirection: "column",
+                gap: "6px",
+                position: "relative",
+                overflow: "hidden",
+                transition: "background 200ms ease",
+              }}
             >
-              {/* Top Accent Light */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              {/* Animated progress fill bar at bottom */}
+              <motion.div
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: stat.fillPercent / 100 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.4, delay: 0.3 + i * 0.1, ease: [0.16, 1, 0.3, 1] as const }}
+                style={{
+                  position: "absolute",
+                  bottom: 0,
+                  left: 0,
+                  height: "2px",
+                  width: "100%",
+                  background: "var(--volt)",
+                  transformOrigin: "left center",
+                  boxShadow: "0 0 6px var(--volt-glow)",
+                }}
+              />
 
-              <div className={`p-4 rounded-2xl bg-slate-900/80 border border-white/10 ${stat.color} mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                <stat.icon className="w-8 h-8" />
-              </div>
-
-              <div className="text-4xl sm:text-5xl font-black text-white mb-2 tracking-tight">
-                <AnimatedNumber value={stat.target} suffix={stat.suffix} />
-              </div>
-
-              <p className="text-slate-300 text-sm sm:text-base font-semibold">
+              <span
+                className="stat-number"
+                style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}
+              >
+                <AnimatedNumber value={stat.value} suffix={stat.suffix} />
+              </span>
+              <span
+                style={{
+                  fontFamily: "var(--font-geist), 'Geist', sans-serif",
+                  fontSize: "0.875rem",
+                  color: "var(--ink-2)",
+                  fontWeight: 500,
+                }}
+              >
                 {stat.label}
-              </p>
+              </span>
+              <span
+                style={{
+                  fontFamily: "var(--font-geist), 'Geist', sans-serif",
+                  fontSize: "0.75rem",
+                  color: "var(--ink-3)",
+                  fontWeight: 400,
+                  marginTop: "2px",
+                }}
+              >
+                {stat.detail}
+              </span>
             </motion.div>
           ))}
         </div>
-
       </div>
     </section>
   );
