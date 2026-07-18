@@ -74,21 +74,17 @@ export function Navbar() {
             className="flex items-center gap-2.5 group flex-shrink-0"
             style={{ textDecoration: "none" }}
           >
-            <div
+            <img
+              src="/logo.png"
+              alt="SparkTech Logo"
               style={{
                 width: "34px",
                 height: "34px",
                 borderRadius: "8px",
-                background: "var(--volt)",
-                color: "oklch(8% 0.014 265)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                objectFit: "contain",
                 flexShrink: 0,
               }}
-            >
-              <Zap className="w-4 h-4" strokeWidth={2.5} />
-            </div>
+            />
             <div style={{ display: "flex", flexDirection: "column", lineHeight: 1 }}>
               <span
                 style={{
@@ -236,19 +232,17 @@ export function Navbar() {
                     textDecoration: "none",
                   }}
                 >
-                  <div
+                  <img
+                    src="/logo.png"
+                    alt="SparkTech Logo"
                     style={{
                       width: "32px",
                       height: "32px",
                       borderRadius: "7px",
-                      background: "var(--volt)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
+                      objectFit: "contain",
+                      flexShrink: 0,
                     }}
-                  >
-                    <Zap className="w-4 h-4" style={{ color: "oklch(8% 0.014 265)" }} strokeWidth={2.5} />
-                  </div>
+                  />
                   <span
                     style={{
                       fontFamily: "var(--font-syne), 'Syne', sans-serif",

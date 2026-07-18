@@ -56,20 +56,17 @@ export function Footer() {
               href="/"
               style={{ display: "flex", alignItems: "center", gap: "10px", textDecoration: "none" }}
             >
-              <div
-                style={{
-                  width: "36px",
-                  height: "36px",
-                  borderRadius: "var(--radius-sm)",
-                  background: "var(--volt)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0,
-                }}
-              >
-                <Zap className="w-5 h-5" style={{ color: "oklch(8% 0.014 265)" }} strokeWidth={2.5} />
-              </div>
+            <img
+              src="/logo.png"
+              alt="SparkTech Logo"
+              style={{
+                width: "36px",
+                height: "36px",
+                borderRadius: "var(--radius-sm)",
+                objectFit: "contain",
+                flexShrink: 0,
+              }}
+            />
               <span
                 style={{
                   fontFamily: "'Syne', sans-serif",
@@ -246,14 +243,14 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="https://mail.google.com/mail/?view=cm&fs=1&to=sparktech1404@gmail.com"
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=sparkteck404@gmail.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ display: "flex", alignItems: "flex-start", gap: "10px", textDecoration: "none" }}
                 >
                   <Mail className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: "var(--volt)" }} strokeWidth={2} />
                   <span style={{ fontFamily: "'Geist', sans-serif", fontSize: "0.875rem", color: "var(--ink-3)", wordBreak: "break-all" }}>
-                    sparktech1404@gmail.com
+                    sparkteck404@gmail.com
                   </span>
                 </a>
               </li>

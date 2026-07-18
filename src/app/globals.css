@@ -429,34 +429,63 @@ select.input-field option {
   width: 100%;
 }
 
-/* Featured card animated volt border */
-@property --border-angle {
-  syntax: '<angle>';
-  initial-value: 0deg;
-  inherits: false;
-}
-
+/* Featured card animated volt flame glow border */
 .volt-border-animated {
-  border: 1px solid var(--volt-border);
   position: relative;
 }
+
+/* Base flame layer */
 .volt-border-animated::before {
   content: '';
   position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  background: conic-gradient(
-    from var(--border-angle),
-    transparent 70%,
-    var(--volt) 85%,
-    transparent 100%
-  );
+  inset: -6px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(0deg, transparent 15%, rgba(180, 255, 0, 0.25) 45%, rgba(180, 255, 0, 0.75) 75%, rgba(255, 255, 255, 0.9) 100%);
   z-index: -1;
-  animation: border-spin 4s linear infinite;
+  filter: blur(20px);
+  animation: flame-pulse-1 4s ease-in-out infinite;
+  opacity: 0.85;
+  pointer-events: none;
 }
 
-@keyframes border-spin {
-  to { --border-angle: 360deg; }
+/* Secondary dancing flame layer */
+.volt-border-animated::after {
+  content: '';
+  position: absolute;
+  inset: -10px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(0deg, transparent 25%, rgba(229, 255, 0, 0.2) 50%, rgba(180, 255, 0, 0.55) 80%, rgba(255, 255, 255, 0.8) 100%);
+  z-index: -2;
+  filter: blur(32px);
+  animation: flame-pulse-2 3s ease-in-out infinite alternate;
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+@keyframes flame-pulse-1 {
+  0%, 100% {
+    transform: scale(1.01) skewX(-0.5deg);
+    filter: blur(12px);
+    opacity: 0.75;
+  }
+  50% {
+    transform: scale(1.025) skewX(0.5deg) translateY(-2px);
+    filter: blur(16px);
+    opacity: 0.9;
+  }
+}
+
+@keyframes flame-pulse-2 {
+  0%, 100% {
+    transform: scale(1.02) skewX(0.5deg) translateY(-1px);
+    filter: blur(20px);
+    opacity: 0.65;
+  }
+  50% {
+    transform: scale(1.04) skewX(-0.5deg) translateY(-3px);
+    filter: blur(28px);
+    opacity: 0.85;
+  }
 }
 
 /* ─── Reduced Motion ─────────────────────────────────────────────────────── */
@@ -575,3 +604,55 @@ a.tag, span.tag, .dot-volt {
 nav a[aria-current="page"] {
   color: var(--volt);
 }
+
+/* ─── Premium Ambient Orb Animations ──────────────────────────────────────── */
+@keyframes orb-float-1 {
+  0%, 100% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(40px, -60px) scale(1.15); }
+  66% { transform: translate(-30px, 30px) scale(0.9); }
+}
+
+@keyframes orb-float-2 {
+  0%, 100% { transform: translate(0px, 0px) scale(1); }
+  50% { transform: translate(-50px, 50px) scale(1.1); }
+}
+
+@keyframes orb-float-3 {
+  0%, 100% { transform: translate(0px, 0px) scale(1); }
+  40% { transform: translate(30px, 30px) scale(0.95); }
+  80% { transform: translate(-20px, -40px) scale(1.05); }
+}
+
+.animate-orb-1 {
+  animation: orb-float-1 25s ease-in-out infinite;
+}
+
+.animate-orb-2 {
+  animation: orb-float-2 30s ease-in-out infinite;
+}
+
+.animate-orb-3 {
+  animation: orb-float-3 28s ease-in-out infinite;
+}
+
+/* Continuous breathing text glow animation with white-hot core */
+.text-glow-continuous {
+  color: var(--volt) !important;
+  animation: text-glow-pulse 4s ease-in-out infinite;
+}
+
+@keyframes text-glow-pulse {
+  0%, 100% {
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.7),
+                 0 0 12px rgba(180, 255, 0, 0.45), 
+                 0 0 30px rgba(180, 255, 0, 0.2);
+  }
+  50% {
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.9),
+                 0 0 20px rgba(180, 255, 0, 0.8), 
+                 0 0 45px rgba(180, 255, 0, 0.45), 
+                 0 0 80px rgba(180, 255, 0, 0.2);
+  }
+}
+
+

@@ -213,7 +213,7 @@ export function ContactSection() {
 
             {/* Email */}
             <a
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=sparktech1404@gmail.com"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=sparkteck404@gmail.com"
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -250,7 +250,7 @@ export function ContactSection() {
                   Email
                 </span>
                 <span style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: "0.9375rem", color: "var(--ink)", wordBreak: "break-all" }}>
-                  sparktech1404@gmail.com
+                  sparkteck404@gmail.com
                 </span>
                 <span style={{ display: "block", fontFamily: "'Geist', sans-serif", fontSize: "0.8125rem", color: "var(--ink-3)", marginTop: "2px" }}>
                   24/7 Response guaranteed

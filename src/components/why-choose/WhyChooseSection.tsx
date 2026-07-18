@@ -4,6 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Phone, CheckCircle2 } from "lucide-react";
+import { GlowCard } from "@/components/ui/GlowCard";
 
 const features = [
   "Fast, on-schedule delivery with agile sprints",
@@ -108,33 +109,42 @@ export function WhyChooseSection() {
               viewport={{ once: true }}
               transition={{ delay: 0.28, duration: 0.5, ease: [0.16, 1, 0.3, 1] as const }}
               style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "14px",
-                background: "var(--volt-dim)",
-                border: "1px solid var(--volt-border)",
-                borderRadius: "var(--radius-md)",
-                padding: "14px 20px",
+                display: "inline-block",
                 marginBottom: "28px",
               }}
             >
-              <span style={{
-                fontFamily: "var(--font-geist-mono), monospace",
-                fontWeight: 600,
-                fontSize: "1.6rem",
-                color: "var(--volt)",
-                letterSpacing: "-0.02em",
-              }}>
-                99%
-              </span>
-              <span style={{
-                fontFamily: "var(--font-geist), 'Geist', sans-serif",
-                fontSize: "0.8125rem",
-                color: "var(--ink-2)",
-                lineHeight: 1.4,
-              }}>
-                Client satisfaction<br />across all projects
-              </span>
+              <GlowCard
+                borderRadius="var(--radius-md)"
+                glowColor="rgba(180, 255, 0, 0.08)"
+                borderGlowColor="rgba(180, 255, 0, 0.35)"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "14px",
+                  background: "var(--volt-dim)",
+                  border: "1px solid var(--volt-border)",
+                  padding: "14px 20px",
+                }}
+              >
+                <span style={{
+                  fontFamily: "var(--font-geist-mono), monospace",
+                  fontWeight: 600,
+                  fontSize: "1.6rem",
+                  color: "var(--volt)",
+                  letterSpacing: "-0.02em",
+                  textShadow: "0 0 10px var(--volt-glow)",
+                }}>
+                  99%
+                </span>
+                <span style={{
+                  fontFamily: "var(--font-geist), 'Geist', sans-serif",
+                  fontSize: "0.8125rem",
+                  color: "var(--ink-2)",
+                  lineHeight: 1.4,
+                }}>
+                  Client satisfaction<br />across all projects
+                </span>
+              </GlowCard>
             </motion.div>
 
             <motion.div
@@ -170,7 +180,7 @@ export function WhyChooseSection() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.07, duration: 0.45, ease: [0.16, 1, 0.3, 1] as const }}
-                  whileHover={{ x: 4 }}
+                  whileHover={{ x: 6 }}
                   style={{
                     display: "flex",
                     alignItems: "flex-start",
@@ -178,16 +188,21 @@ export function WhyChooseSection() {
                     padding: "15px 0",
                     borderBottom: i < features.length - 1 ? "1px solid var(--surface-border-subtle)" : "none",
                     cursor: "default",
-                    transition: "background 200ms ease",
+                    transition: "all 200ms ease",
                   }}
                 >
                   <motion.div
-                    whileHover={{ scale: 1.3, rotate: 5 }}
+                    whileHover={{ scale: 1.3, rotate: 10 }}
                     transition={{ duration: 0.2 }}
                   >
                     <CheckCircle2
                       className="w-4 h-4"
-                      style={{ color: "var(--volt)", flexShrink: 0, marginTop: "2px" }}
+                      style={{
+                        color: "var(--volt)",
+                        flexShrink: 0,
+                        marginTop: "2px",
+                        filter: "drop-shadow(0 0 4px var(--volt-glow))",
+                      }}
                       strokeWidth={2}
                     />
                   </motion.div>
@@ -198,6 +213,13 @@ export function WhyChooseSection() {
                       color: "var(--ink-2)",
                       lineHeight: 1.5,
                       fontWeight: 400,
+                      transition: "color 150ms ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      (e.currentTarget as HTMLElement).style.color = "var(--ink)";
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLElement).style.color = "var(--ink-2)";
                     }}
                   >
                     {feature}
