@@ -132,6 +132,7 @@ function ServiceCard({ service, isFeatured }: { service: typeof services[0]; isF
       variants={cardVariants}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
+      className={isFeatured ? "services-featured" : undefined}
       style={{
         gridColumn: isFeatured ? "span 2" : undefined,
         background: "var(--surface-raised)",
@@ -304,9 +305,10 @@ export function ServicesSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
+          className="services-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
             gap: "1px",
             background: "var(--surface-border-subtle)",
             border: "1px solid var(--surface-border-subtle)",
