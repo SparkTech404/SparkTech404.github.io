@@ -298,7 +298,7 @@ export function ContactSection() {
               </div>
             </div>
 
-            {/* Socials */}
+            {/* TODO: Uncomment when social links are ready
             <div
               style={{
                 display: "flex",
@@ -339,6 +339,7 @@ export function ContactSection() {
                 </a>
               ))}
             </div>
+            */}
           </motion.div>
 
           {/* Right: Contact Form */}

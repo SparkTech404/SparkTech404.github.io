@@ -96,6 +96,7 @@ export function Footer() {
               Secure, scalable, and modern digital solutions designed to accelerate business growth.
             </p>
 
+            {/* TODO: Uncomment when social links are ready
             <div style={{ display: "flex", gap: "8px" }}>
               {socials.map((s) => (
                 <a
@@ -130,6 +131,7 @@ export function Footer() {
                 </a>
               ))}
             </div>
+            */}
           </div>
 
           {/* Quick Links */}
