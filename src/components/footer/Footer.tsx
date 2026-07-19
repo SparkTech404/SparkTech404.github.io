@@ -23,10 +23,8 @@ const serviceLinks = [
 ];
 
 const socials = [
-  { icon: Twitter, label: "Twitter", href: "#" },
-  { icon: Linkedin, label: "LinkedIn", href: "#" },
-  { icon: Github, label: "GitHub", href: "#" },
-  { icon: Instagram, label: "Instagram", href: "#" },
+  { icon: Linkedin, label: "LinkedIn", href: "www.linkedin.com/in/spark-tech-24840b423" },
+  { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/sparktech404/" },
 ];
 
 export function Footer() {
@@ -93,7 +91,7 @@ export function Footer() {
               Secure, scalable, and modern digital solutions designed to accelerate business growth.
             </p>
 
-            {/* TODO: Uncomment when social links are ready
+            {
             <div style={{ display: "flex", gap: "8px" }}>
               {socials.map((s) => (
                 <a
@@ -127,8 +125,7 @@ export function Footer() {
                   <s.icon className="w-4 h-4" />
                 </a>
               ))}
-            </div>
-            */}
+            </div>}
           </div>
 
           {/* Quick Links */}
