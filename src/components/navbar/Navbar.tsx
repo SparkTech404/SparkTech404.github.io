@@ -75,7 +75,7 @@ export function Navbar() {
             style={{ textDecoration: "none" }}
           >
             <img
-              src="/logo.png"
+              src="/logo-icon.jpg"
               alt="SparkTech Logo"
               style={{
                 width: "34px",
@@ -233,7 +233,7 @@ export function Navbar() {
                   }}
                 >
                   <img
-                    src="/logo.png"
+                    src="/logo-icon.jpg"
                     alt="SparkTech Logo"
                     style={{
                       width: "32px",

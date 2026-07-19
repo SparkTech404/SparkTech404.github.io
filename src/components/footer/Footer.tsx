@@ -57,7 +57,7 @@ export function Footer() {
               style={{ display: "flex", alignItems: "center", gap: "10px", textDecoration: "none" }}
             >
             <img
-              src="/logo.png"
+              src="/logo-icon.jpg"
               alt="SparkTech Logo"
               style={{
                 width: "36px",
