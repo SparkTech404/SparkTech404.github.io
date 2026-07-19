@@ -92,6 +92,7 @@ export default function RootLayout({
     <html lang="en" className="dark scroll-smooth" suppressHydrationWarning>
       <body className={`${syne.variable} ${geist.variable} ${geistMono.variable} antialiased relative min-h-screen flex flex-col`}
         style={{ backgroundColor: "var(--surface)", color: "var(--ink)" }}
+        suppressHydrationWarning
       >
         <script
           type="application/ld+json"
