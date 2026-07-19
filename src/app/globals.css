@@ -635,21 +635,32 @@ nav a[aria-current="page"] {
   animation: orb-float-3 28s ease-in-out infinite;
 }
 
-/* Continuous breathing text glow animation with white-hot core */
+/* Premium gradient shimmer flow animation for crisp, readable text */
 .text-glow-continuous {
-  color: var(--volt) !important;
-  animation: text-glow-pulse 4s ease-in-out infinite;
+  background: linear-gradient(
+    120deg,
+    oklch(83% 0.28 120) 25%,
+    oklch(96% 0.05 120) 45%,
+    #ffffff 50%,
+    oklch(96% 0.05 120) 55%,
+    oklch(83% 0.28 120) 75%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent !important;
+  animation: text-shimmer-flow 5s linear infinite;
+  text-shadow: none !important; /* completely disabled to keep font lines 100% sharp */
+  display: inline-block;
 }
 
-@keyframes text-glow-pulse {
-  0%, 100% {
-    text-shadow: 0 0 1px rgba(255, 255, 255, 0.6),
-                 0 0 8px rgba(180, 255, 0, 0.2);
+@keyframes text-shimmer-flow {
+  0% {
+    background-position: 200% center;
   }
-  50% {
-    text-shadow: 0 0 2px rgba(255, 255, 255, 0.8),
-                 0 0 12px rgba(180, 255, 0, 0.35), 
-                 0 0 25px rgba(180, 255, 0, 0.15);
+  100% {
+    background-position: -200% center;
   }
 }
 
