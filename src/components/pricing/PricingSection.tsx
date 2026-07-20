@@ -10,7 +10,7 @@ const plans = [
   {
     name: "Starter",
     tagline: "Personal sites & MVPs",
-    price: "₹4,999",
+    price: "₹14,999",
     note: "starting at",
     features: [
       "Single-page responsive website",
@@ -26,7 +26,7 @@ const plans = [
   {
     name: "Professional",
     tagline: "Businesses ready to scale",
-    price: "₹14,999",
+    price: "₹21,999",
     note: "starting at",
     features: [
       "Multi-page Next.js website (up to 8 pages)",
