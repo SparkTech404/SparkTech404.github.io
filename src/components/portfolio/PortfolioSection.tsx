@@ -88,17 +88,72 @@ const projects: ProjectItem[] = [
   },
 ];
 
+const headerContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const headerItemVariants = {
+  hidden: { opacity: 0, y: 25 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      ease: [0.16, 1, 0.3, 1] as const,
+    },
+  },
+};
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 50, scale: 0.96, rotateX: 6 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    rotateX: 0,
+    transition: {
+      type: "spring" as const,
+      stiffness: 65,
+      damping: 18,
+      mass: 0.8,
+    },
+  },
+};
+
 export function PortfolioSection() {
   return (
     <section style={{ paddingBlock: "clamp(40px, 8vw, 80px)", position: "relative", zIndex: 10 }}>
       <div className="section-container">
         
         {/* Header */}
-        <div style={{ textAlign: "center", marginBottom: "clamp(32px, 5vw, 48px)", display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <div className="tag tag-volt" style={{ marginBottom: "12px" }}>
+        <motion.div
+          variants={headerContainerVariants}
+          initial="hidden"
+          animate="visible"
+          style={{ textAlign: "center", marginBottom: "clamp(32px, 5vw, 48px)", display: "flex", flexDirection: "column", alignItems: "center" }}
+        >
+          <motion.div variants={headerItemVariants} className="tag tag-volt" style={{ marginBottom: "12px" }}>
             <Sparkles className="w-3.5 h-3.5" /> OUR PRODUCTION WORK
-          </div>
-          <h2
+          </motion.div>
+          <motion.h2
+            variants={headerItemVariants}
             style={{
               fontSize: "clamp(2rem, 5vw, 3rem)",
               fontWeight: 800,
@@ -108,28 +163,33 @@ export function PortfolioSection() {
             }}
           >
             Our Featured <span className="text-glow-continuous">Client Projects</span>
-          </h2>
-          <p style={{ color: "var(--ink-2)", fontSize: "clamp(0.9375rem, 2vw, 1.0625rem)", maxWidth: "56ch" }}>
+          </motion.h2>
+          <motion.p
+            variants={headerItemVariants}
+            style={{ color: "var(--ink-2)", fontSize: "clamp(0.9375rem, 2vw, 1.0625rem)", maxWidth: "56ch" }}
+          >
             Directly browse the live web applications and custom design solutions developed for our clients.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
         {/* Card Grid Container */}
-        <div
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
             gap: "32px",
             maxWidth: "1200px",
             margin: "0 auto",
+            perspective: "1200px",
           }}
         >
           {projects.map((project) => (
             <motion.div
               key={project.id}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              variants={cardVariants}
               className="card"
               style={{
                 background: "var(--surface-raised)",
@@ -141,6 +201,7 @@ export function PortfolioSection() {
                 padding: 0,
                 position: "relative",
                 transition: "border-color 300ms ease, box-shadow 300ms ease",
+                transformStyle: "preserve-3d",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.borderColor = "var(--volt-border)";
@@ -259,7 +320,7 @@ export function PortfolioSection() {
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
