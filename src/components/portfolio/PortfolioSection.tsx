@@ -17,6 +17,33 @@ interface ProjectItem {
 
 const projects: ProjectItem[] = [
   {
+    id: "buildora-ai",
+    title: "Buildora AI",
+    tag: "AI SaaS Platform",
+    description: "An AI-powered website builder that transforms natural language prompts into production-ready, responsive websites in seconds. Built with a modern full-stack architecture featuring secure authentication, AI code generation, live previews, credit-based usage, and seamless deployment for a complete no-code web development experience.",
+    techs: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "Firebase Auth",
+      "JWT",
+      "OpenRouter AI",
+      "Razorpay",
+      "Vercel"
+    ],
+    demoUrl: "https://buildora-ai-five.vercel.app/",
+    imageUrl: "/buildora_ai.png",
+    stats: [
+      { label: "AI Generation", value: "Instant" },
+      { label: "Authentication", value: "Secure" },
+      { label: "Deployment", value: "Live" },
+    ],
+  },
+  {
     id: "hotel-pacific",
     title: "Hotel Pacific",
     tag: "Luxury City Resort",
