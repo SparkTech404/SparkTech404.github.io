@@ -17,6 +17,48 @@ interface ProjectItem {
 
 const projects: ProjectItem[] = [
   {
+    id: "occasions",
+    title: "Occasions",
+    tag: "Event Platform",
+    description: "A premium event planning and coordination portal. Features dynamic scheduling tools, custom occasion customization interfaces, and fluid, high-fidelity responsive layouts.",
+    techs: ["React", "TypeScript", "TailwindCSS", "Vite"],
+    demoUrl: "https://occassions.vercel.app/",
+    imageUrl: "/occasions.png",
+    stats: [
+      { label: "Sector", value: "Event Planning" },
+      { label: "Platform", value: "Vite SPA" },
+      { label: "Status", value: "Live" },
+    ],
+  },
+  {
+    id: "zerolag",
+    title: "ZeroLag",
+    tag: "UTM Builder",
+    description: "A high-performance UTM marketing campaign link builder. Designed to generate zero-latency campaign parameters, custom UTM presets, and instant link copying with advanced search optimization.",
+    techs: ["Next.js", "TypeScript", "TailwindCSS", "SEO Engine"],
+    demoUrl: "https://zero-lag-utms.vercel.app/",
+    imageUrl: "/zerolag.png",
+    stats: [
+      { label: "Sector", value: "Marketing Tech" },
+      { label: "Performance", value: "100%" },
+      { label: "Status", value: "Live" },
+    ],
+  },
+  {
+    id: "baatcheet",
+    title: "BaatCheet",
+    tag: "Chat Application",
+    description: "A real-time instant messaging platform. Features socket-based live rooms, secure chat rooms, interactive user profiles, and dynamic UI panels for seamless desktop and mobile conversation.",
+    techs: ["React", "Node.js", "Express", "Socket.io"],
+    demoUrl: "https://baatcheet-88e9.onrender.com/",
+    imageUrl: "/baatcheet.png",
+    stats: [
+      { label: "Protocol", value: "WebSockets" },
+      { label: "Hosting", value: "Render" },
+      { label: "Status", value: "Live" },
+    ],
+  },
+  {
     id: "hotel-pacific",
     title: "Hotel Pacific",
     tag: "Luxury City Resort",
