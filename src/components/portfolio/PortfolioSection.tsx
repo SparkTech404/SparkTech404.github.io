@@ -13,6 +13,7 @@ interface ProjectItem {
   demoUrl: string;
   imageUrl: string;
   stats: { label: string; value: string }[];
+  category: "app" | "design";
 }
 
 const projects: ProjectItem[] = [
@@ -42,6 +43,7 @@ const projects: ProjectItem[] = [
       { label: "Authentication", value: "Secure" },
       { label: "Deployment", value: "Live" },
     ],
+    category: "app",
   },
   {
     id: "hotel-pacific",
@@ -56,6 +58,7 @@ const projects: ProjectItem[] = [
       { label: "Animations", value: "Fluid" },
       { label: "Status", value: "Live" },
     ],
+    category: "design",
   },
   {
     id: "hotel-sachin",
@@ -70,6 +73,7 @@ const projects: ProjectItem[] = [
       { label: "Platform", value: "Vite SPA" },
       { label: "Status", value: "Live" },
     ],
+    category: "app",
   },
   {
     id: "elysof-v3",
@@ -84,6 +88,7 @@ const projects: ProjectItem[] = [
       { label: "Load Time", value: "0.2s" },
       { label: "Status", value: "Production" },
     ],
+    category: "app",
   },
   {
     id: "elysof-v2",
@@ -98,6 +103,7 @@ const projects: ProjectItem[] = [
       { label: "Responsive", value: "Yes" },
       { label: "Status", value: "Archived" },
     ],
+    category: "design",
   },
   {
     id: "elysof-v1",
@@ -112,6 +118,7 @@ const projects: ProjectItem[] = [
       { label: "Asset Type", value: "Blueprint" },
       { label: "Status", value: "Archived" },
     ],
+    category: "design",
   },
 ];
 
@@ -165,6 +172,144 @@ const cardVariants = {
 };
 
 export function PortfolioSection() {
+  const webApps = projects.filter((p) => p.category === "app");
+  const webDesigns = projects.filter((p) => p.category === "design");
+
+  const renderProjectCard = (project: ProjectItem) => (
+    <motion.div
+      key={project.id}
+      variants={cardVariants}
+      className="card"
+      style={{
+        background: "var(--surface-raised)",
+        border: "1px solid var(--surface-border-subtle)",
+        borderRadius: "var(--radius-md)",
+        display: "flex",
+        flexDirection: "column",
+        overflow: "hidden",
+        padding: 0,
+        position: "relative",
+        transition: "border-color 300ms ease, box-shadow 300ms ease",
+        transformStyle: "preserve-3d",
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.borderColor = "var(--volt-border)";
+        e.currentTarget.style.boxShadow = "0 12px 40px oklch(83% 0.28 120 / 0.08)";
+        const img = e.currentTarget.querySelector(".project-img") as HTMLElement;
+        if (img) img.style.transform = "scale(1.05)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderColor = "var(--surface-border-subtle)";
+        e.currentTarget.style.boxShadow = "none";
+        const img = e.currentTarget.querySelector(".project-img") as HTMLElement;
+        if (img) img.style.transform = "scale(1)";
+      }}
+    >
+      {/* Image Preview Block */}
+      <div
+        style={{
+          height: "220px",
+          overflow: "hidden",
+          position: "relative",
+          background: "var(--surface-high)",
+          borderBottom: "1px solid var(--surface-border-subtle)",
+        }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={project.imageUrl}
+          alt={project.title}
+          className="project-img"
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "top center",
+            transition: "transform 400ms cubic-bezier(0.16, 1, 0.3, 1)",
+          }}
+        />
+      </div>
+
+      {/* Text details padded block */}
+      <div
+        style={{
+          padding: "24px",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          flex: 1,
+          gap: "20px",
+        }}
+      >
+        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+            <span className="tag tag-volt" style={{ alignSelf: "flex-start", fontSize: "0.6875rem", padding: "2px 8px" }}>
+              {project.tag}
+            </span>
+            <h3 style={{ fontSize: "1.25rem", color: "var(--ink)", fontWeight: 800, margin: 0 }}>
+              {project.title}
+            </h3>
+          </div>
+
+          <p style={{ fontSize: "0.875rem", color: "var(--ink-2)", margin: 0, lineHeight: 1.45 }}>
+            {project.description}
+          </p>
+        </div>
+
+        {/* Lower block (Tech Chips + Link button) */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+          {/* Tech stack */}
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+            {project.techs.map((tech) => (
+              <span
+                key={tech}
+                style={{
+                  fontSize: "0.6875rem",
+                  fontFamily: "var(--font-geist-mono)",
+                  background: "oklch(14% 0.018 265)",
+                  padding: "2px 8px",
+                  borderRadius: "4px",
+                  color: "var(--ink-3)",
+                }}
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+
+          {/* Action link */}
+          <div style={{ borderTop: "1px solid var(--surface-border-subtle)", paddingTop: "16px" }}>
+            <a
+              href={project.demoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "6px",
+                fontSize: "0.8125rem",
+                fontWeight: 700,
+                background: "var(--volt)",
+                color: "oklch(8% 0.014 265)",
+                padding: "10px 16px",
+                borderRadius: "6px",
+                textDecoration: "none",
+                width: "100%",
+                textAlign: "center",
+                transition: "opacity 150ms ease",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.85")}
+              onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+            >
+              <ExternalLink className="w-3.5 h-3.5" /> Visit Demo Website
+            </a>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+
   return (
     <section style={{ paddingBlock: "clamp(40px, 8vw, 80px)", position: "relative", zIndex: 10 }}>
       <div className="section-container">
@@ -174,7 +319,7 @@ export function PortfolioSection() {
           variants={headerContainerVariants}
           initial="hidden"
           animate="visible"
-          style={{ textAlign: "center", marginBottom: "clamp(32px, 5vw, 48px)", display: "flex", flexDirection: "column", alignItems: "center" }}
+          style={{ textAlign: "center", marginBottom: "clamp(48px, 6vw, 64px)", display: "flex", flexDirection: "column", alignItems: "center" }}
         >
           <motion.div variants={headerItemVariants} className="tag tag-volt" style={{ marginBottom: "12px" }}>
             <Sparkles className="w-3.5 h-3.5" /> OUR PRODUCTION WORK
@@ -199,155 +344,60 @@ export function PortfolioSection() {
           </motion.p>
         </motion.div>
 
-        {/* Card Grid Container */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-            gap: "32px",
-            maxWidth: "1200px",
-            margin: "0 auto",
-            perspective: "1200px",
-          }}
-        >
-          {projects.map((project) => (
-            <motion.div
-              key={project.id}
-              variants={cardVariants}
-              className="card"
-              style={{
-                background: "var(--surface-raised)",
-                border: "1px solid var(--surface-border-subtle)",
-                borderRadius: "var(--radius-md)",
-                display: "flex",
-                flexDirection: "column",
-                overflow: "hidden",
-                padding: 0,
-                position: "relative",
-                transition: "border-color 300ms ease, box-shadow 300ms ease",
-                transformStyle: "preserve-3d",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = "var(--volt-border)";
-                e.currentTarget.style.boxShadow = "0 12px 40px oklch(83% 0.28 120 / 0.08)";
-                const img = e.currentTarget.querySelector(".project-img") as HTMLElement;
-                if (img) img.style.transform = "scale(1.05)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = "var(--surface-border-subtle)";
-                e.currentTarget.style.boxShadow = "none";
-                const img = e.currentTarget.querySelector(".project-img") as HTMLElement;
-                if (img) img.style.transform = "scale(1)";
-              }}
-            >
-              {/* Image Preview Block */}
-              <div
-                style={{
-                  height: "220px",
-                  overflow: "hidden",
-                  position: "relative",
-                  background: "var(--surface-high)",
-                  borderBottom: "1px solid var(--surface-border-subtle)",
-                }}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={project.imageUrl}
-                  alt={project.title}
-                  className="project-img"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    objectPosition: "top center",
-                    transition: "transform 400ms cubic-bezier(0.16, 1, 0.3, 1)",
-                  }}
-                />
-              </div>
+        {/* Web Applications Section */}
+        <div style={{ marginBottom: "64px" }}>
+          <div style={{ marginBottom: "28px", borderBottom: "1px solid var(--surface-border-subtle)", paddingBottom: "12px", display: "flex", flexDirection: "column", gap: "6px" }}>
+            <span style={{ fontSize: "0.75rem", letterSpacing: "0.12em", fontWeight: 700, color: "var(--volt)", textTransform: "uppercase" }}>
+              SaaS & Interactive Platforms
+            </span>
+            <h3 style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: 800, color: "var(--ink)", margin: 0 }}>
+              Web Applications
+            </h3>
+          </div>
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+              gap: "32px",
+              maxWidth: "1200px",
+              perspective: "1200px",
+            }}
+          >
+            {webApps.map(renderProjectCard)}
+          </motion.div>
+        </div>
 
-              {/* Text details padded block */}
-              <div
-                style={{
-                  padding: "24px",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  flex: 1,
-                  gap: "20px",
-                }}
-              >
-                <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-                    <span className="tag tag-volt" style={{ alignSelf: "flex-start", fontSize: "0.6875rem", padding: "2px 8px" }}>
-                      {project.tag}
-                    </span>
-                    <h3 style={{ fontSize: "1.25rem", color: "var(--ink)", fontWeight: 800, margin: 0 }}>
-                      {project.title}
-                    </h3>
-                  </div>
+        {/* Website Designs Section */}
+        <div>
+          <div style={{ marginBottom: "28px", borderBottom: "1px solid var(--surface-border-subtle)", paddingBottom: "12px", display: "flex", flexDirection: "column", gap: "6px" }}>
+            <span style={{ fontSize: "0.75rem", letterSpacing: "0.12em", fontWeight: 700, color: "var(--volt)", textTransform: "uppercase" }}>
+              Premium Storefronts & Visual UIs
+            </span>
+            <h3 style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: 800, color: "var(--ink)", margin: 0 }}>
+              Website Designs
+            </h3>
+          </div>
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+              gap: "32px",
+              maxWidth: "1200px",
+              perspective: "1200px",
+            }}
+          >
+            {webDesigns.map(renderProjectCard)}
+          </motion.div>
+        </div>
 
-                  <p style={{ fontSize: "0.875rem", color: "var(--ink-2)", margin: 0, lineHeight: 1.45 }}>
-                    {project.description}
-                  </p>
-                </div>
-
-                {/* Lower block (Tech Chips + Link button) */}
-                <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-                  {/* Tech stack */}
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
-                    {project.techs.map((tech) => (
-                      <span
-                        key={tech}
-                        style={{
-                          fontSize: "0.6875rem",
-                          fontFamily: "var(--font-geist-mono)",
-                          background: "oklch(14% 0.018 265)",
-                          padding: "2px 8px",
-                          borderRadius: "4px",
-                          color: "var(--ink-3)",
-                        }}
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Action link */}
-                  <div style={{ borderTop: "1px solid var(--surface-border-subtle)", paddingTop: "16px" }}>
-                    <a
-                      href={project.demoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        gap: "6px",
-                        fontSize: "0.8125rem",
-                        fontWeight: 700,
-                        background: "var(--volt)",
-                        color: "oklch(8% 0.014 265)",
-                        padding: "10px 16px",
-                        borderRadius: "6px",
-                        textDecoration: "none",
-                        width: "100%",
-                        textAlign: "center",
-                        transition: "opacity 150ms ease",
-                      }}
-                      onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.85")}
-                      onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
-                    >
-                      <ExternalLink className="w-3.5 h-3.5" /> Visit Demo Website
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
       </div>
     </section>
   );
