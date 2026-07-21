@@ -249,7 +249,11 @@ function ServiceCard({ service, isFeatured }: { service: typeof services[0]; isF
   );
 }
 
-export function ServicesSection() {
+export function ServicesSection({ isPreview = false }: { isPreview?: boolean }) {
+  const displayedServices = isPreview
+    ? services.filter((s) => ["web-dev", "web-app", "ui-ux"].includes(s.id))
+    : services;
+
   return (
     <section
       id="services"
@@ -277,7 +281,7 @@ export function ServicesSection() {
               fontWeight: 500,
             }}
           >
-            What we build
+            {isPreview ? "Services Preview" : "What we build"}
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -308,7 +312,7 @@ export function ServicesSection() {
           className="services-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+            gridTemplateColumns: isPreview ? "repeat(auto-fit, minmax(280px, 1fr))" : "repeat(auto-fit, minmax(240px, 1fr))",
             gap: "1px",
             background: "var(--surface-border-subtle)",
             border: "1px solid var(--surface-border-subtle)",
@@ -316,34 +320,60 @@ export function ServicesSection() {
             overflow: "hidden",
           }}
         >
-          {services.map((service) => (
-            <ServiceCard key={service.id} service={service} isFeatured={service.featured} />
+          {displayedServices.map((service) => (
+            <ServiceCard 
+              key={service.id} 
+              service={service} 
+              isFeatured={isPreview ? false : service.featured} 
+            />
           ))}
         </motion.div>
 
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-          style={{
-            marginTop: "clamp(28px, 4vw, 40px)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
-            gap: "16px",
-          }}
-        >
-          <p style={{ fontFamily: "'Geist', sans-serif", fontSize: "0.9375rem", color: "var(--ink-3)" }}>
-            Not sure which service fits your needs?
-          </p>
-          <Link href="/contact" className="btn-ghost">
-            Let&apos;s Talk
-            <ArrowUpRight className="w-4 h-4" />
-          </Link>
-        </motion.div>
+        {/* Bottom CTA or Show All button */}
+        {isPreview ? (
+          <div style={{ display: "flex", justifyContent: "center", marginTop: "40px" }}>
+            <Link
+              href="/services"
+              className="btn-volt"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                padding: "12px 28px",
+                fontSize: "0.9375rem",
+                fontWeight: 700,
+                borderRadius: "8px",
+                textDecoration: "none",
+              }}
+            >
+              Show All Services
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        ) : (
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4 }}
+            style={{
+              marginTop: "clamp(28px, 4vw, 40px)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              flexWrap: "wrap",
+              gap: "16px",
+            }}
+          >
+            <p style={{ fontFamily: "'Geist', sans-serif", fontSize: "0.9375rem", color: "var(--ink-3)" }}>
+              Not sure which service fits your needs?
+            </p>
+            <Link href="/contact" className="btn-ghost">
+              Let&apos;s Talk
+              <ArrowUpRight className="w-4 h-4" />
+            </Link>
+          </motion.div>
+        )}
       </div>
     </section>
   );
