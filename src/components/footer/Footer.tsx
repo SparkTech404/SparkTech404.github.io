@@ -24,7 +24,7 @@ const serviceLinks = [
 ];
 
 const socials = [
-  { icon: Linkedin, label: "LinkedIn", href: "www.linkedin.com/in/spark-tech-24840b423" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/spark-tech-24840b423/" },
   { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/sparktech404/" },
 ];
 

@@ -24,10 +24,8 @@ const serviceOptions = [
 ];
 
 const socials = [
-  { icon: Twitter, label: "Twitter", href: "#" },
-  { icon: Linkedin, label: "LinkedIn", href: "#" },
-  { icon: Github, label: "GitHub", href: "#" },
-  { icon: Instagram, label: "Instagram", href: "#" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/spark-tech-24840b423/ "},
+  { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/sparktech404/ " },
 ];
 
 const labelStyle: React.CSSProperties = {
@@ -298,7 +296,7 @@ export function ContactSection() {
               </div>
             </div>
 
-            {/* TODO: Uncomment when social links are ready
+            {
             <div
               style={{
                 display: "flex",
@@ -339,7 +337,7 @@ export function ContactSection() {
                 </a>
               ))}
             </div>
-            */}
+            }
           </motion.div>
 
           {/* Right: Contact Form */}
