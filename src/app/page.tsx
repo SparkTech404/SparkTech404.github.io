@@ -20,6 +20,9 @@ export const metadata: Metadata = {
       "Spark Tech Web Solution offers premium web development, modern landing pages, and scalable web applications. Elevate your brand with our custom software solutions.",
     url: "https://sparktech404.github.io",
   },
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default function HomePage() {
