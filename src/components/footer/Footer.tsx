@@ -288,10 +288,14 @@ export function Footer() {
             All rights reserved.
           </p>
           <div style={{ display: "flex", gap: "20px" }}>
-            {["Privacy Policy", "Terms of Service", "Sitemap"].map((item) => (
-              <a
-                key={item}
-                href="#"
+            {[
+              { label: "Privacy Policy", href: "/privacy" },
+              { label: "Terms of Service", href: "/terms" },
+              { label: "Sitemap", href: "/sitemap" }
+            ].map((item) => (
+              <Link
+                key={item.label}
+                href={item.href}
                 style={{
                   fontFamily: "'Geist', sans-serif",
                   fontSize: "0.75rem",
@@ -302,8 +306,8 @@ export function Footer() {
                 onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--ink)"; }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--ink-3)"; }}
               >
-                {item}
-              </a>
+                {item.label}
+              </Link>
             ))}
           </div>
         </div>
