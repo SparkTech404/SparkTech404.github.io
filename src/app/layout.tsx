@@ -5,6 +5,7 @@ import { Navbar } from "@/components/navbar/Navbar";
 import { Footer } from "@/components/footer/Footer";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { AmbientBackground } from "@/components/ui/AmbientBackground";
+import { WelcomeLoader } from "@/components/ui/WelcomeLoader";
 
 const syne = Syne({
   subsets: ["latin"],
@@ -117,6 +118,7 @@ export default function RootLayout({
         />
 
         <AmbientBackground />
+        <WelcomeLoader />
         <ScrollProgress />
         <Navbar />
         
