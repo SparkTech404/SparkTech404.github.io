@@ -41,7 +41,20 @@ export const metadata: Metadata = {
     "SparkTech Web Solution services",
     "Spark Tech Web Solution process",
     "Spark Tech Web Solution contact",
-    "SparkTech Web Solution FAQ"
+    "SparkTech Web Solution FAQ",
+    "hire web developer",
+    "custom web design company",
+    "freelance frontend developer react",
+    "nextjs web development services",
+    "hire react coder",
+    "affordable landing page design",
+    "best web development agency",
+    "software development company",
+    "ecommerce website developer",
+    "SaaS interface designer",
+    "hire UI UX engineer",
+    "hire nodejs developer",
+    "custom web app building"
   ]
 };
 
