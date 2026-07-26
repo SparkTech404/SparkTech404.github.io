@@ -1,11 +1,12 @@
-import { MetadataRoute } from 'next'
+import { MetadataRoute } from 'next';
+import { blogPosts } from '@/data/blogPosts';
 
 export const dynamic = 'force-static';
  
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://sparktech404.github.io'
+  const baseUrl = 'https://sparktech404.github.io';
 
-  return [
+  const baseRoutes: MetadataRoute.Sitemap = [
     {
       url: `${baseUrl}/`,
       lastModified: new Date(),
@@ -22,6 +23,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/services`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/portfolio`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/blog`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
@@ -60,5 +73,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.5,
     },
-  ]
+  ];
+
+  const blogPostRoutes: MetadataRoute.Sitemap = blogPosts.map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: new Date(post.date),
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  }));
+
+  return [...baseRoutes, ...blogPostRoutes];
 }
