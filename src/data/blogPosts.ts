@@ -105,6 +105,51 @@ export const blogPosts: BlogPost[] = [
 <h2>Our Recommendation</h2>
 <p>For the vast majority of business websites — especially agencies, SaaS products, portfolios, and professional services — <strong>Next.js is the clear choice in 2026</strong>. The speed, security, and conversion advantages are compelling.</p>
     `
+  },
+  {
+    slug: "seo-strategy-for-local-businesses",
+    title: "How to Build a Winning Local SEO Strategy in 2026",
+    excerpt: "Want to bring more local customers through your doors? Here is a step-by-step local SEO strategy to rank #1 in search results in your city.",
+    date: "2026-08-01",
+    readTime: "7 min read",
+    category: "SEO",
+    tags: ["SEO", "Local Business", "Google Maps", "Marketing"],
+    featured: false,
+    content: `
+<p>If you own a local service business, Google is your absolute best source of leads. When people look for services in their area, they click the top local results. Here is how to make sure they find you.</p>
+
+<h2>1. Claim and Optimize Your Google Business Profile</h2>
+<p>Your Google Business Profile (formerly Google My Business) is the foundation of local SEO. Fill out every section: business hours, service details, and address. Upload high-quality pictures of your office or team regularly.</p>
+
+<h2>2. Gather Reviews Constantly</h2>
+<p>Reviews tell Google that you are an active, trusted business. Set up a system to ask for reviews after every successful project. Respond to every review you get, whether it's positive or negative.</p>
+
+<h2>3. Build Local Citations</h2>
+<p>Ensure your Name, Address, and Phone number (NAP) are identical across directory listings like Yelp, YellowPages, and TripAdvisor. Small inconsistencies confuse Google and lower your maps ranking.</p>
+    `
+  },
+  {
+    slug: "why-website-speed-matters",
+    title: "Why Website Speed Is the Ultimate Conversion Killer",
+    excerpt: "A slow website doesn't just annoy visitors — it destroys your sales conversions and drops your ranking on Google search results. Here is the science of speed.",
+    date: "2026-08-05",
+    readTime: "5 min read",
+    category: "SEO",
+    tags: ["Performance", "SEO", "UX", "Speed Optimization"],
+    featured: false,
+    content: `
+<p>Did you know that <strong>47% of consumers expect a page to load in 2 seconds or less</strong>? If your site takes longer, they will bounce, costing you a potential customer.</p>
+
+<h2>Speed Affects Your Google Ranking</h2>
+<p>Google uses Core Web Vitals to grade your site performance. Faster sites rank higher because they provide a better user experience. Slow load times lead directly to lost visibility.</p>
+
+<h2>How to Speed Up Your Site Right Now</h2>
+<ul>
+  <li>Optimize your images into modern formats like WebP or AVIF.</li>
+  <li>Minify and clean up CSS/JS files.</li>
+  <li>Use a Content Delivery Network (CDN) to serve assets globally.</li>
+</ul>
+    `
   }
 ];
 
